@@ -1,6 +1,6 @@
 package modelo;
 
 public enum Turno {
-MANANA,
+MAÑANA,
 TARDE
 }

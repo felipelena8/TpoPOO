@@ -1,13 +1,15 @@
-package modelo;
+package controlador;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Articulo;
+import modelo.Cliente;
+import modelo.Instalacion;
 import modelo.equipos.AreaAdministrador;
 import modelo.equipos.AreaSistema;
 import modelo.equipos.CallCenter;
 import modelo.equipos.EquipoTecnico;
-import solicitudes.SolicitudUsuario;
 import modelo.usuarios.Usuario;
 
 public class Sistema {
@@ -21,13 +23,19 @@ public class Sistema {
 	private List<Usuario> usuarios;
 	private static Sistema sistema = null;
 	
+
 	private Sistema() {
 		clientes = new ArrayList<Cliente>();
 		instalaciones = new ArrayList<Instalacion>();
 		articulos = new ArrayList<Articulo>();
 		usuarios = new ArrayList<Usuario>();
+		callcenter = new CallCenter();
+		equipoTecnico = new EquipoTecnico();
+		areaAdministracion = new AreaAdministrador();
+		areaSistema = new AreaSistema();
 	}
-	public static Sistema getSistema() {
+	
+	public static Sistema getInstance() {
 		if(sistema == null) {
 			sistema = new Sistema();
 		}
@@ -35,7 +43,7 @@ public class Sistema {
 	}
 	
 	public void crearUsuario(Usuario usuario) {
-		usuarios.add(usuario);
+		this.usuarios.add(usuario);
 		switch (usuario.getClass().getSimpleName()) {
 		case "Administrador":
 			areaAdministracion.agregarUsuario(usuario);
@@ -79,6 +87,7 @@ public class Sistema {
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
+	
 	
 	
 	

@@ -1,5 +1,4 @@
 package modelo;
-import java.util.Iterator;
 import java.util.List;
 
 import modelo.enums.TipoFactura;
