@@ -1,10 +1,7 @@
 package solicitudes;
 
-import java.util.ArrayList;
-
-import enums.Rol;
-import enums.Seniority;
-import modelo.Instalacion;
+import modelo.enums.Rol;
+import modelo.enums.Seniority;
 import modelo.Turno;
 
 public class SolicitudUsuario {
@@ -12,6 +9,7 @@ public class SolicitudUsuario {
 	private Seniority seniority;
 	private String nombre, apellido, usuario, password;
 	private Rol rol;
+
 	public Seniority getSeniority() {
 		return seniority;
 	}
@@ -20,13 +18,14 @@ public class SolicitudUsuario {
 		return rol;
 	}
 
-	public SolicitudUsuario(String nombre, String apellido, String usuario, String password, Turno turno, Seniority seniority, Rol rol) {
+	public SolicitudUsuario(String nombre, String apellido, String usuario, String password, Turno turno,
+			Seniority seniority, Rol rol) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.usuario = usuario;
 		this.password = password;
 		this.turno = turno;
-		this.seniority=seniority;	
+		this.seniority = seniority;
 		this.rol = rol;
 	}
 

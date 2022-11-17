@@ -3,12 +3,12 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import equipos.AreaAdministrador;
-import equipos.AreaSistema;
-import equipos.CallCenter;
-import equipos.EquipoTecnico;
+import modelo.equipos.AreaAdministrador;
+import modelo.equipos.AreaSistema;
+import modelo.equipos.CallCenter;
+import modelo.equipos.EquipoTecnico;
 import solicitudes.SolicitudUsuario;
-import usuarios.Usuario;
+import modelo.usuarios.Usuario;
 
 public class Sistema {
 	private CallCenter callcenter;

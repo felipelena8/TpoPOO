@@ -1,4 +1,4 @@
-package costos;
+package modelo.costos;
 
 public class Almuerzo {
 private static double valorMaximoAlmuerzo;

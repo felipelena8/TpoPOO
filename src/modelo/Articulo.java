@@ -1,6 +1,6 @@
 package modelo;
 
-import enums.DescripcionArticulo;
+import modelo.enums.DescripcionArticulo;
 
 public class Articulo {
 private int stock;

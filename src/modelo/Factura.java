@@ -2,7 +2,7 @@ package modelo;
 import java.util.Iterator;
 import java.util.List;
 
-import enums.TipoFactura;
+import modelo.enums.TipoFactura;
 
 public class Factura {
 private Cliente cliente;

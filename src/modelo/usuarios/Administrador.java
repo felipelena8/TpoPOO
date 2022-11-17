@@ -1,6 +1,6 @@
-package usuarios;
+package modelo.usuarios;
 
-import enums.Rol;
+import modelo.enums.Rol;
 
 public class Administrador extends Usuario {
 

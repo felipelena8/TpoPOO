@@ -2,10 +2,10 @@ package modelo;
 
 import java.time.LocalDateTime;
 
-import costos.Almuerzo;
-import costos.Costo;
-import enums.EstadoInstalacion;
-import usuarios.Tecnico;
+import modelo.costos.Almuerzo;
+import modelo.costos.Costo;
+import modelo.enums.EstadoInstalacion;
+import modelo.usuarios.Tecnico;
 
 public class Instalacion {
 private static long idCount;
