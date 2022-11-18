@@ -69,6 +69,7 @@ public class PantallaLogin extends JFrame{
 				if(controladorSistema.usuarioExiste(usernameField.getText(), passwordField.getText())) {
 					System.out.println("El usuario " + usernameField.getText() + " ha ingresado al sistema.");
 					cerrarVentana();
+					controladorPantalla.mostrarPantallaInstalaciones();
 					
 				}else {
 					System.out.println("Las credenciales ingresadas son incorrectas");
@@ -92,7 +93,7 @@ public class PantallaLogin extends JFrame{
 	}
 	
 	private void cerrarVentana() {
-		controladorPantalla.cerrarLogin(this);
+		controladorPantalla.cerrarPantallaLogin();
 	}
 	
 }

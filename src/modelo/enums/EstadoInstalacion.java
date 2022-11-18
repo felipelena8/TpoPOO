@@ -1,5 +1,5 @@
 package modelo.enums;
 
 public enum EstadoInstalacion {
-	PROGRAMADA, EN_CURSO, CANDELADA, FINALIZADA
+	PROGRAMADA, EN_CURSO, CANCELADA, FINALIZADA
 }

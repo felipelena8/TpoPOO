@@ -10,7 +10,7 @@ public class Main {
 		ControladorSistema controladorSistema = ControladorSistema.getInstance();
 		SolicitudEmpleado solicitudEmpleado = new SolicitudEmpleado("Juan", "Perez", "1", Perfil.ADMINISTRADOR, "admin", "admin"); 
 		controladorSistema.agregarEmpleado(solicitudEmpleado);
-		controladorPantalla.mostrarLogin();
+		controladorPantalla.mostrarPantallaLogin();
 		
 	}
 
