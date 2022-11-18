@@ -52,7 +52,7 @@ private Cliente cliente;
 	
 		public PantallaInstalaciones() {
 			
-			super("Listado de camiones");
+			super("Listado de instalaciones");
 			
 			controladorPantalla = ControladorPantalla.getInstance();
 			
@@ -62,7 +62,7 @@ private Cliente cliente;
 			
 			this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 			Container containerTabla = new Container();
-			String[] columnas = {"ID", "Estado", "Fecha Inicio", "Fecha Fin", "Técnico", "Cliente"};
+			String[] columnas = {"ID", "Estado", "Fecha Inicio", "Fecha Fin", "Tecnico", "Cliente"};
 			
 			tableModel = new DefaultTableModel(null, columnas){
 
