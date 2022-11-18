@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JDateChooser;
+import com.github.lgooddatepicker.components.DateTimePicker;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
@@ -42,7 +43,7 @@ private Cliente cliente;
 	
 	private JComboBox<String> comboEstado;
 	
-	private JDateChooser dateChooserFechaInicio, dateChooserFechaFin;
+	private DateTimePicker dateTimePickerFechaInicio, dateTimePickerFechaFin;
 	
 	private ControladorPantalla controladorPantalla;
 	
@@ -115,17 +116,15 @@ private Cliente cliente;
 			containerFormulario.add(comboEstado);
 			
 			JLabel labelFechaInicio = new JLabel("Fecha de Inicio:");
-			dateChooserFechaInicio = new JDateChooser();
-			dateChooserFechaInicio.setDateFormatString("dd/MM/yyyy");
+			dateTimePickerFechaInicio = new DateTimePicker();
 			containerFormulario.add(labelFechaInicio);
-			containerFormulario.add(dateChooserFechaInicio);
+			containerFormulario.add(dateTimePickerFechaInicio);
 			
 			
 			JLabel labelFechaFin = new JLabel("Fecha de Fin:");
-			dateChooserFechaFin = new JDateChooser();
-			dateChooserFechaFin.setDateFormatString("dd/MM/yyyy");
+			dateTimePickerFechaFin = new DateTimePicker();
 			containerFormulario.add(labelFechaFin);
-			containerFormulario.add(dateChooserFechaFin);
+			containerFormulario.add(dateTimePickerFechaFin);
 			
 			
 			panel.add(containerFormulario);
