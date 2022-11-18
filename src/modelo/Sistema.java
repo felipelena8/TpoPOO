@@ -1,13 +1,8 @@
-package controlador;
+package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Articulo;
-import modelo.Cliente;
-import modelo.Empleado;
-import modelo.Instalacion;
-import modelo.Usuario;
 import modelo.equipos.AreaAdministrador;
 import modelo.equipos.AreaSistema;
 import modelo.equipos.CallCenter;
