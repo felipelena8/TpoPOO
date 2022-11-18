@@ -16,10 +16,11 @@ import javax.swing.JTextField;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
-import controlador.Sistema;
+
 
 public class PantallaLogin extends JFrame{
 	
+	private static final long serialVersionUID = 1L;
 	private JTextField usernameField, passwordField;
 	private ControladorPantalla controladorPantalla;
 	private ControladorSistema controladorSistema;
@@ -66,8 +67,8 @@ public class PantallaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(controladorSistema.usuarioExiste(usernameField.getText(), passwordField.getText())) {
-					System.out.println(usernameField.getText() + " ha iniciado sesión.");
-					//cerrarVentana();
+					System.out.println("El usuario " + usernameField.getText() + " ha iniciado sesión.");
+					cerrarVentana();
 					
 				}else {
 					JOptionPane.showMessageDialog(btnAccess, "Las credenciales ingresadas son incorrectas");

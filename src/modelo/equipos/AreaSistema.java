@@ -1,19 +1,12 @@
 package modelo.equipos;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import modelo.usuarios.Usuario;
+public class AreaSistema extends EquipoTrabajo{
 
-public class AreaSistema {
-	private List<Usuario> usuarios;
-
-	public AreaSistema() {
-		usuarios = new ArrayList<Usuario>();
+	public AreaSistema(Double sueldoJunior, Double sueldoSemisenior, Double sueldoSenior) {
+		super(sueldoJunior, sueldoSemisenior, sueldoSenior);
+		
 	}
 
-	public void agregarUsuario(Usuario user) {
-		usuarios.add(user);
-	}
 
 }

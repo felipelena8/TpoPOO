@@ -1,24 +1,12 @@
 package modelo.equipos;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import solicitudes.SolicitudCliente;
-import modelo.usuarios.Usuario;
+public class CallCenter extends EquipoTrabajo{
 
-public class CallCenter {
-	private List<Usuario> usuarios;
-
-	public CallCenter() {
-		usuarios = new ArrayList<Usuario>();
+	public CallCenter(Double sueldoJunior, Double sueldoSemisenior, Double sueldoSenior) {
+		super(sueldoJunior, sueldoSemisenior, sueldoSenior);
+		// TODO Auto-generated constructor stub
 	}
 
-	public void crearCliente(SolicitudCliente solicitud) {
-
-	}
-
-	public void agregarUsuario(Usuario user) {
-		usuarios.add(user);
-	}
 
 }

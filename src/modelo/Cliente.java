@@ -9,13 +9,9 @@ private String correoElectronico;
 private String direccion;
 private List<Factura> facturas;
 
-public Cliente(String nombre, String apellido) {
-	super(nombre, apellido);
-	
-}
-public Cliente(String nombre, String apellido, String telefono, String cuitCuil, String correoElectronico,
+public Cliente(String nombre, String apellido, String dni, String telefono, String cuitCuil, String correoElectronico,
 		String direccion) {
-	super(nombre, apellido);
+	super(nombre, apellido, dni);
 	this.telefono = telefono;
 	this.cuitCuil = cuitCuil;
 	this.correoElectronico = correoElectronico;
