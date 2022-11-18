@@ -2,7 +2,6 @@ import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
 import modelo.enums.Perfil;
 import solicitudes.SolicitudEmpleado;
-import solicitudes.SolicitudUsuario;
 
 public class Main {
 

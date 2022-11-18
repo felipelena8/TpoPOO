@@ -6,10 +6,8 @@ import excepciones.FacturaException;
 import modelo.Cliente;
 import modelo.Empleado;
 import modelo.Factura;
-import modelo.Usuario;
 import modelo.costos.Costo;
 import solicitudes.SolicitudEmpleado;
-import solicitudes.SolicitudUsuario;
 
 public class ControladorSistema {
 	
