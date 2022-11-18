@@ -5,12 +5,13 @@ import java.util.List;
 
 import modelo.Articulo;
 import modelo.Cliente;
+import modelo.Empleado;
 import modelo.Instalacion;
+import modelo.Usuario;
 import modelo.equipos.AreaAdministrador;
 import modelo.equipos.AreaSistema;
 import modelo.equipos.CallCenter;
 import modelo.equipos.EquipoTecnico;
-import modelo.usuarios.Usuario;
 
 public class Sistema {
 	private CallCenter callcenter;
@@ -20,7 +21,7 @@ public class Sistema {
 	private List<Cliente> clientes;
 	private List<Instalacion> instalaciones;
 	private List<Articulo> articulos;
-	private List<Usuario> usuarios;
+	private List<Empleado> empleados;
 	private static Sistema sistema = null;
 	
 
@@ -28,11 +29,11 @@ public class Sistema {
 		clientes = new ArrayList<Cliente>();
 		instalaciones = new ArrayList<Instalacion>();
 		articulos = new ArrayList<Articulo>();
-		usuarios = new ArrayList<Usuario>();
-		callcenter = new CallCenter();
-		equipoTecnico = new EquipoTecnico();
-		areaAdministracion = new AreaAdministrador();
-		areaSistema = new AreaSistema();
+		empleados = new ArrayList<Empleado>();
+		callcenter = new CallCenter(100.0, 200.0, 300.0);
+		equipoTecnico = new EquipoTecnico(100.0, 200.0, 300.0);
+		areaAdministracion = new AreaAdministrador(100.0, 200.0, 300.0);
+		areaSistema = new AreaSistema(100.0, 200.0, 300.0);
 	}
 	
 	public static Sistema getInstance() {
@@ -42,26 +43,21 @@ public class Sistema {
 		return sistema;
 	}
 	
-	public void crearUsuario(Usuario usuario) {
-		this.usuarios.add(usuario);
-		switch (usuario.getClass().getSimpleName()) {
-		case "Administrador":
-			areaAdministracion.agregarUsuario(usuario);
-			break;
-		case "AdministradorSistema":
-			areaSistema.agregarUsuario(usuario);
-			break;
-		case "Tecnico":
-			equipoTecnico.agregarUsuario(usuario);
-			break;
-		case "Operador":
-			callcenter.agregarUsuario(usuario);
-			break;
-			
-		}
-		
+	
+	public void agregarEmpleado(Empleado empleado) {
+		empleados.add(empleado);
 	}
 	
+	public void crearUsuario(String dni, Usuario usuario) {
+		if(empleados != null) {
+			for (Empleado e : empleados) {
+				if(dni.equals(e.getDni())){
+					e.asignarUsuario(usuario);
+				}	
+			}
+		}
+		System.out.println("No hay empleados cargados en el sistema.");
+	}
 	
 	public CallCenter getCallcenter() {
 		return callcenter;
@@ -84,8 +80,8 @@ public class Sistema {
 	public List<Articulo> getArticulos() {
 		return articulos;
 	}
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public List<Empleado> getEmpleados() {
+		return empleados;
 	}
 	
 	

@@ -1,22 +1,22 @@
 package modelo.equipos;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import excepciones.FacturaException;
 import modelo.Cliente;
 import modelo.Factura;
 import solicitudes.SolicitudFactura;
-import modelo.usuarios.Usuario;
 
-public class AreaAdministrador {
-	private List<Usuario> usuarios;
+public class AreaAdministrador extends EquipoTrabajo{
+	
+	
+	public AreaAdministrador(Double sueldoJunior, Double sueldoSemisenior, Double sueldoSenior) {
+		super(sueldoJunior, sueldoSemisenior, sueldoSenior);
+		// TODO Auto-generated constructor stub
+	}
+
 	private List<Factura> facturas;
 
-	public AreaAdministrador() {
-		usuarios = new ArrayList<Usuario>();
-		facturas = new ArrayList<Factura>();
-	}
+
 
 	public Factura buscarFactura(long nro) throws FacturaException {
 		for (Factura factura : facturas) {
@@ -31,9 +31,6 @@ public class AreaAdministrador {
 		return facturas;
 	}
 
-	public void agregarUsuario(Usuario user) {
-		usuarios.add(user);
-	}
 
 	public void enviarFacturaPorCorreo(Factura factura, Cliente cliente) {
 
@@ -42,5 +39,6 @@ public class AreaAdministrador {
 	public void emitirFactura(SolicitudFactura soli) {
 
 	}
+
 
 }

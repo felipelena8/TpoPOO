@@ -4,13 +4,11 @@ import java.util.List;
 
 import excepciones.FacturaException;
 import modelo.Cliente;
+import modelo.Empleado;
 import modelo.Factura;
+import modelo.Usuario;
 import modelo.costos.Costo;
-import modelo.usuarios.Administrador;
-import modelo.usuarios.AdministradorSistema;
-import modelo.usuarios.Operador;
-import modelo.usuarios.Tecnico;
-import modelo.usuarios.Usuario;
+import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudUsuario;
 
 public class ControladorSistema {
@@ -30,44 +28,14 @@ public class ControladorSistema {
 		}
 	}
 
-	public boolean crearUsuario(SolicitudUsuario solicitud) {
-		if (!usuarioExiste(solicitud.getUsuario(), solicitud.getPassword())) {
-			switch (solicitud.getRol()) {
-			case ADMINISTRADOR:
-				sistema.crearUsuario(new Administrador(solicitud.getNombre(), solicitud.getApellido(),
-						solicitud.getUsuario(), solicitud.getPassword()));
-				break;
-			case ADMINISTRADOR_SISTEMA:
-				sistema.crearUsuario(new AdministradorSistema(solicitud.getNombre(),
-						solicitud.getApellido(), solicitud.getUsuario(), solicitud.getPassword()));
-				break;
-			case OPERADOR:
-				sistema.crearUsuario(new Operador(solicitud.getNombre(), solicitud.getApellido(),
-						solicitud.getUsuario(), solicitud.getPassword()));
-				break;
-			case TECNICO:
-				sistema.crearUsuario(new Tecnico(solicitud.getNombre(), solicitud.getApellido(),
-						solicitud.getUsuario(), solicitud.getPassword(), solicitud.getTurno(),
-						solicitud.getSeniority()));
-				break;
-			}
-			return true;
+	
+	public void agregarEmpleado(SolicitudEmpleado solicitud) {
+		if(!empleadoExiste(solicitud.getDni())) {
+			sistema.agregarEmpleado(new Empleado(solicitud.getNombre(), solicitud.getApellido(), solicitud.getDni(), solicitud.getPerfil(), solicitud.getUsername(), solicitud.getPassword()));
+			System.out.println("El empleado " + solicitud.getNombre() + " " + solicitud.getApellido() + " ha sido agregado.");
 		}
-		return false;
-
 	}
 
-	public Usuario buscarUsuario(String username, String password) {
-		if(sistema.getUsuarios() != null) {
-			for (Usuario usuario : sistema.getUsuarios()) {
-				if (usuario.getUsuario().equals(username) && usuario.getPassword().equals(password)) {
-					return usuario;
-				}
-			}
-			
-		}
-		return null;
-	}
 	
 	public Cliente buscarCliente(String correo) {
 		for(Cliente cliente: sistema.getClientes()) {
@@ -95,7 +63,29 @@ public class ControladorSistema {
 	}
 	
 	public boolean usuarioExiste(String username, String password) {
-		return buscarUsuario(username, password) != null;
+		if(sistema.getEmpleados() != null) {
+			for(Empleado e : sistema.getEmpleados()) {
+				if(e.getUsuario().getUsername().equals(username) && e.getUsuario().getUsername().equals(password)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
+	private boolean empleadoExiste(String dni) {
+		if(sistema.getEmpleados() != null) {
+			for(Empleado e : sistema.getEmpleados()) {
+				if(dni.equals(e.getDni())){
+					return true;
+				}
+			}		
+		}
+		
+		return false;
 	}
 
 }

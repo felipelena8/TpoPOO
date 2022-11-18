@@ -66,7 +66,7 @@ public class PantallaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(controladorSistema.usuarioExiste(usernameField.getText(), passwordField.getText())) {
-					System.out.println(usernameField.getText() + " ha iniciado sesión.");
+					System.out.println("El usuario " + usernameField.getText() + " ha iniciado sesión.");
 					//cerrarVentana();
 					
 				}else {

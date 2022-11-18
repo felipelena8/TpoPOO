@@ -1,5 +1,5 @@
 package modelo.enums;
 
-public enum Rol {
+public enum Perfil {
 	ADMINISTRADOR, ADMINISTRADOR_SISTEMA, TECNICO, OPERADOR
 }

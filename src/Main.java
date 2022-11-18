@@ -1,8 +1,7 @@
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
-import modelo.Turno;
-import modelo.enums.Rol;
-import modelo.enums.Seniority;
+import modelo.enums.Perfil;
+import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudUsuario;
 
 public class Main {
@@ -10,9 +9,8 @@ public class Main {
 	public static void main(String[] args) {
 		ControladorPantalla controladorPantalla = ControladorPantalla.getInstance();
 		ControladorSistema controladorSistema = ControladorSistema.getInstance();
-		SolicitudUsuario solicitudUsuario =  new SolicitudUsuario("admin", "admin", "admin", "admin", Turno.MAÑANA, Seniority.SENIOR, Rol.ADMINISTRADOR);
-		controladorSistema.crearUsuario(solicitudUsuario);
-		System.out.println("Se creó el usuario admin");
+		SolicitudEmpleado solicitudEmpleado = new SolicitudEmpleado("Juan", "Perez", "1", Perfil.ADMINISTRADOR, "admin", "admin"); 
+		controladorSistema.agregarEmpleado(solicitudEmpleado);
 		controladorPantalla.mostrarLogin();
 		
 	}

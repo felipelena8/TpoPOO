@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import modelo.costos.Almuerzo;
 import modelo.costos.Costo;
 import modelo.enums.EstadoInstalacion;
-import modelo.usuarios.Tecnico;
+
 
 public class Instalacion {
 private static long idCount;
@@ -18,13 +18,16 @@ private Cliente cliente;
 private Costo costo;
 private Almuerzo almuerzo;
 
-public Instalacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, Tecnico tecnico, Cliente cliente) {
-	this.fechaFin=fechaFin;
-	this.fechaInicio=fechaInicio;
-	this.tecnico = tecnico;
+public Instalacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, Cliente cliente) {
+	this.fechaFin = fechaFin;
+	this.fechaInicio = fechaInicio;
 	this.cliente = cliente;
 	estado = EstadoInstalacion.PROGRAMADA;
-	id=idCount++;
+	id = idCount++;
+}
+
+public long getId() {
+	return id;
 }
 
 public EstadoInstalacion getEstado() {
@@ -33,13 +36,12 @@ public EstadoInstalacion getEstado() {
 public void setEstado(EstadoInstalacion estado) {
 	this.estado = estado;
 }
+
+
 public LocalDateTime getFechaInicio() {
 	return fechaInicio;
 }
 
-public long getId() {
-	return id;
-}
 
 public LocalDateTime getFechaFin() {
 	return fechaFin;
@@ -57,6 +59,14 @@ public void modificarFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
 public void finalizarInstalacion() {
 	this.estado=EstadoInstalacion.FINALIZADA;
 	costo.calcularTiempoTrabajado(fechaInicio, fechaFin);
+}
+
+public void reasignarTecnico(Tecnico tecnico) {
+	this.tecnico = tecnico;
+}
+
+public Tecnico getTecnico() {
+	return tecnico;
 }
 
 }
