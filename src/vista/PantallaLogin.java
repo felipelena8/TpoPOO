@@ -27,7 +27,7 @@ public class PantallaLogin extends JFrame{
 	
 	public PantallaLogin(){
 		
-		super("Iniciar sesión");
+		super("Ingresar al sistema");
 		this.setLayout(new BorderLayout());
 		
 		controladorSistema = ControladorSistema.getInstance(); 
@@ -48,7 +48,7 @@ public class PantallaLogin extends JFrame{
 		Container passwordContainer = new Container();
 		passwordContainer.setBounds(50, 50, 200, 30);
 		passwordContainer.setLayout(new GridLayout(1,2,2,2));
-		JLabel passwordLabel = new JLabel("Contraseña:");
+		JLabel passwordLabel = new JLabel("Password:");
 		passwordField = new JPasswordField(8);
 		passwordContainer.add(passwordLabel);
 		passwordContainer.add(passwordField);
@@ -67,10 +67,12 @@ public class PantallaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(controladorSistema.usuarioExiste(usernameField.getText(), passwordField.getText())) {
-					System.out.println("El usuario " + usernameField.getText() + " ha iniciado sesión.");
+					System.out.println("El usuario " + usernameField.getText() + " ha ingresado al sistema.");
 					cerrarVentana();
+					controladorPantalla.mostrarPantallaInstalaciones();
 					
 				}else {
+					System.out.println("Las credenciales ingresadas son incorrectas");
 					JOptionPane.showMessageDialog(btnAccess, "Las credenciales ingresadas son incorrectas");
 				}
 				
@@ -91,7 +93,7 @@ public class PantallaLogin extends JFrame{
 	}
 	
 	private void cerrarVentana() {
-		controladorPantalla.cerrarLogin(this);
+		controladorPantalla.cerrarPantallaLogin();
 	}
 	
 }

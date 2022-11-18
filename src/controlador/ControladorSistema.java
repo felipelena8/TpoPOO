@@ -6,6 +6,7 @@ import excepciones.FacturaException;
 import modelo.Cliente;
 import modelo.Empleado;
 import modelo.Factura;
+import modelo.Sistema;
 import modelo.costos.Costo;
 import solicitudes.SolicitudEmpleado;
 
@@ -30,7 +31,7 @@ public class ControladorSistema {
 	public void agregarEmpleado(SolicitudEmpleado solicitud) {
 		if(!empleadoExiste(solicitud.getDni())) {
 			sistema.agregarEmpleado(new Empleado(solicitud.getNombre(), solicitud.getApellido(), solicitud.getDni(), solicitud.getPerfil(), solicitud.getUsername(), solicitud.getPassword()));
-			System.out.println("El empleado " + solicitud.getNombre() + " " + solicitud.getApellido() + " ha sido agregado.");
+			System.out.println("El empleado " + solicitud.getNombre() + " " + solicitud.getApellido() + " ha sido agregado al sistema.");
 		}
 	}
 
@@ -63,7 +64,7 @@ public class ControladorSistema {
 	public boolean usuarioExiste(String username, String password) {
 		if(sistema.getEmpleados() != null) {
 			for(Empleado e : sistema.getEmpleados()) {
-				if(e.getUsuario().getUsername().equals(username) && e.getUsuario().getUsername().equals(password)) {
+				if(e.getUsuario().validarCredenciales(username, password)) {
 					return true;
 				}
 			}
