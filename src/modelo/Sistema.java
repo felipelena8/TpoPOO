@@ -54,6 +54,14 @@ public class Sistema {
 		System.out.println("No hay empleados cargados en el sistema.");
 	}
 	
+	public void agregarCliente(Cliente cliente) {
+		clientes.add(cliente);
+	}
+	
+	public void agregarInstalacion(Instalacion instalacion) {
+		instalaciones.add(instalacion);
+	}
+	
 	public CallCenter getCallcenter() {
 		return callcenter;
 	}

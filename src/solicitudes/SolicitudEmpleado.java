@@ -18,6 +18,7 @@ public class SolicitudEmpleado {
 	
 	public SolicitudEmpleado(String nombre, String apellido, String dni, Perfil perfil, String username, String password) {
 		this.nombre = nombre;
+		this.dni = dni;
 		this.apellido = apellido;
 		this.perfil = perfil;
 		this.username = username;

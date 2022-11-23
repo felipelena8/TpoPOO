@@ -4,12 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,13 +41,10 @@ private Cliente cliente;
 	 * 
 	 */
 	
-    
-	
-	private DefaultTableModel tableModel;
-	
+   
 	private JTable tablaInstalaciones;
 	
-	private JComboBox<String> comboEstado;
+	private JComboBox<EstadoInstalacion> comboEstado;
 	
 	private DateTimePicker dateTimePickerFechaInicio, dateTimePickerFechaFin;
 	
@@ -62,24 +65,7 @@ private Cliente cliente;
 			
 			this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 			Container containerTabla = new Container();
-			String[] columnas = {"ID", "Estado", "Fecha Inicio", "Fecha Fin", "Tecnico", "Cliente"};
-			
-			tableModel = new DefaultTableModel(null, columnas){
-
-		        private static final long serialVersionUID = 1L;
-
-				@Override
-		        public boolean isCellEditable(int row, int column)
-		        {
-		            return false;
-		        }
-		    };
-		    
-		    tablaInstalaciones = new JTable(tableModel);
-		   
-		    
-			
-		
+			tablaInstalaciones = new JTable(controladorSistema.informacionInstalaciones());
 			JScrollPane tableScrollPane = new JScrollPane(tablaInstalaciones);
 			tableScrollPane.setPreferredSize(new Dimension(500, 200));
 			containerTabla.setLayout(new GridLayout(1, 2, 5, 5));
@@ -110,8 +96,7 @@ private Cliente cliente;
 			containerFormulario.setBounds(100, 300, 300, 100);
 			
 			JLabel labelEstado = new JLabel("Estado:");
-			comboEstado = new JComboBox<String>();
-			cargarComboEstado(comboEstado);
+			comboEstado = new JComboBox<EstadoInstalacion>(EstadoInstalacion.values());
 			containerFormulario.add(labelEstado);
 			containerFormulario.add(comboEstado);
 			
@@ -129,19 +114,38 @@ private Cliente cliente;
 			
 			panel.add(containerFormulario);
 			
+			btnAgregar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					LocalDateTime fIni = dateTimePickerFechaInicio.getDateTimeStrict();
+					System.out.println(fIni);
+					LocalDateTime fFin = dateTimePickerFechaFin.getDateTimeStrict();
+					System.out.println(fFin);
+					if(fIni != null && fFin!= null) {
+						controladorPantalla.mostrarPantallaGrande(new PantallaSeleccionCliente(fIni, fFin));
+						actualizarTabla();
+					}else {
+						JOptionPane.showMessageDialog(null, "Debes seleccionar dos fechas");
+					}
+				}
+			});
 			
-			//rellenarTabla();
+			btnActualizar.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					actualizarTabla();
+					
+				}
+			});
 			
 			this.add(panel, BorderLayout.CENTER);
 		}
 		
-		private void cargarComboEstado(JComboBox<String> comboEstado) {
-			comboEstado.addItem(EstadoInstalacion.PROGRAMADA.name());
-			comboEstado.addItem(EstadoInstalacion.CANCELADA.name());
-			comboEstado.addItem(EstadoInstalacion.EN_CURSO.name());
-			comboEstado.addItem(EstadoInstalacion.FINALIZADA.name());
-			
+		public void actualizarTabla() {
+			tablaInstalaciones.setModel(controladorSistema.informacionInstalaciones());
 		}
+
 		
 		/*
 		public void rellenarTabla() {

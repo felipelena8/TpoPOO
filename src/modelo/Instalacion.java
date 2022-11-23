@@ -69,4 +69,8 @@ public Tecnico getTecnico() {
 	return tecnico;
 }
 
+public Cliente getCliente() {
+	return cliente;
+}
+
 }

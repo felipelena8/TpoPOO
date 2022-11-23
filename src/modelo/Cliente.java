@@ -35,4 +35,7 @@ public String getDireccion() {
 	return direccion;
 }
 
+public String getCuitCuil() {
+	return cuitCuil;
+}
 }
