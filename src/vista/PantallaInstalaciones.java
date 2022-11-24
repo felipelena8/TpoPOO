@@ -3,13 +3,11 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,10 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import com.github.lgooddatepicker.components.DateTimePicker;
-
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
 import modelo.enums.EstadoInstalacion;
@@ -30,17 +25,6 @@ import modelo.enums.EstadoInstalacion;
 public class PantallaInstalaciones extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-
-	/*
-	 * private long id;
-private EstadoInstalacion estado;
-private LocalDateTime fechaInicio;
-private LocalDateTime fechaFin;
-private Tecnico tecnico;
-private Cliente cliente;
-	 * 
-	 */
-	
    
 	private JTable tablaInstalaciones;
 	
@@ -139,6 +123,25 @@ private Cliente cliente;
 				}
 			});
 			
+			JButton btnAtras = new JButton("Volver");
+			btnAtras.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					controladorPantalla.mostrarPantallaGrande(new PantallaMenu());
+					cerrarVentana();
+				}
+			});
+			
+			
+			Container containerAtras = new Container();
+			containerAtras.setBounds(0, 0, 300, 100);
+			containerAtras.setLayout(new FlowLayout(FlowLayout.LEFT));
+			containerAtras.add(btnAtras);
+			
+			panel.add(containerAtras);
+			
+			
+			
 			this.add(panel, BorderLayout.CENTER);
 		}
 		
@@ -198,5 +201,9 @@ private Cliente cliente;
 		}
 		
 	*/
+		
+		private void cerrarVentana() {
+			controladorPantalla.cerrarPantalla(this);
+		}
 
 }

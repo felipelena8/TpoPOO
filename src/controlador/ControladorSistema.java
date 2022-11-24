@@ -1,6 +1,5 @@
 package controlador;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -132,7 +131,15 @@ public class ControladorSistema {
 	}
 
 	public DefaultTableModel informacionClientes() {
-		DefaultTableModel modelo = new DefaultTableModel();
+		DefaultTableModel modelo = new DefaultTableModel(){
+	        private static final long serialVersionUID = 1L;
+
+			@Override
+	        public boolean isCellEditable(int row, int column)
+	        {
+	            return false;
+	        }
+	    };
 		modelo.setColumnIdentifiers("DNI-Nombre-Apellido-Cuit/Cuil-Telefono-Correo".split("-"));
 		for (Cliente c : sistema.getClientes()) {
 			modelo.addRow(new Object[] {c.getDni() ,c.getNombre(), c.getApellido(), c.getCuitCuil(), c.getTelefono(),
@@ -142,7 +149,15 @@ public class ControladorSistema {
 	}
 
 	public DefaultTableModel informacionUsuarios() {
-		DefaultTableModel modelo = new DefaultTableModel();
+		DefaultTableModel modelo = new DefaultTableModel(){
+	        private static final long serialVersionUID = 1L;
+
+			@Override
+	        public boolean isCellEditable(int row, int column)
+	        {
+	            return false;
+	        }
+	    };
 		modelo.setColumnIdentifiers("ID Usuario-Nombre-Apellido-DNI-Usuario-Perfil".split("-"));
 		for (Empleado e : sistema.getEmpleados()) {
 			if (e.usuarioAsignado()) {
@@ -154,7 +169,15 @@ public class ControladorSistema {
 	}
 
 	public DefaultTableModel informacionInstalaciones() {
-		DefaultTableModel modelo = new DefaultTableModel();
+		DefaultTableModel modelo = new DefaultTableModel(){
+	        private static final long serialVersionUID = 1L;
+
+			@Override
+	        public boolean isCellEditable(int row, int column)
+	        {
+	            return false;
+	        }
+	    };
 		modelo.setColumnIdentifiers("ID Instalacion-Estado-Fecha inicio-Fecha Fin-Tecnico-Cliente".split("-"));
 		for (Instalacion i : sistema.getInstalaciones()) {
 			String tecnicoInfo = "Sin asignar";
