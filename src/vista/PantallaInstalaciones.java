@@ -3,6 +3,7 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -122,6 +123,25 @@ public class PantallaInstalaciones extends JFrame{
 				}
 			});
 			
+			JButton btnAtras = new JButton("Volver");
+			btnAtras.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					controladorPantalla.mostrarPantallaGrande(new PantallaMenu());
+					cerrarVentana();
+				}
+			});
+			
+			
+			Container containerAtras = new Container();
+			containerAtras.setBounds(0, 0, 300, 100);
+			containerAtras.setLayout(new FlowLayout(FlowLayout.LEFT));
+			containerAtras.add(btnAtras);
+			
+			panel.add(containerAtras);
+			
+			
+			
 			this.add(panel, BorderLayout.CENTER);
 		}
 		
@@ -181,5 +201,9 @@ public class PantallaInstalaciones extends JFrame{
 		}
 		
 	*/
+		
+		private void cerrarVentana() {
+			controladorPantalla.cerrarPantalla(this);
+		}
 
 }
