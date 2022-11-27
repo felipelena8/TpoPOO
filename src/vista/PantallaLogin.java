@@ -68,7 +68,7 @@ public class PantallaLogin extends JFrame {
 				if (controladorSistema.usuarioExiste(usernameField.getText(), passwordField.getText())) {
 					System.out.println("El usuario " + usernameField.getText() + " ha ingresado al sistema.");
 					cerrarVentana();
-					controladorPantalla.mostrarPantallaGrande(new PantallaMenu());
+					controladorPantalla.mostrarPantallaChica(new PantallaMenu());
 
 				} else {
 					System.out.println("Las credenciales ingresadas son incorrectas");
