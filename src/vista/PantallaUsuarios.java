@@ -73,7 +73,7 @@ public class PantallaUsuarios extends JFrame {
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controladorPantalla.mostrarPantallaGrande(new PantallaMenu());
+				controladorPantalla.mostrarPantallaChica(new PantallaMenu());
 				cerrarVentana();
 			}
 		});
