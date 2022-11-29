@@ -1,8 +1,10 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import modelo.enums.DescripcionArticulo;
 import modelo.equipos.AreaAdministrador;
 import modelo.equipos.AreaSistema;
 import modelo.equipos.CallCenter;
@@ -18,7 +20,6 @@ public class Sistema {
 	private List<Articulo> articulos;
 	private List<Empleado> empleados;
 	private static Sistema sistema = null;
-	
 
 	private Sistema() {
 		clientes = new ArrayList<Cliente>();
@@ -30,66 +31,79 @@ public class Sistema {
 		areaAdministracion = new AreaAdministrador(100.0, 200.0, 300.0);
 		areaSistema = new AreaSistema(100.0, 200.0, 300.0);
 	}
-	
+
 	public static Sistema getInstance() {
-		if(sistema == null) {
+		if (sistema == null) {
 			sistema = new Sistema();
 		}
 		return sistema;
 	}
-	
-	
+
 	public void agregarEmpleado(Empleado empleado) {
 		empleados.add(empleado);
 	}
-	
+
 	public void crearUsuario(String dni, Usuario usuario) {
-		if(empleados != null) {
+		if (empleados != null) {
 			for (Empleado e : empleados) {
-				if(dni.equals(e.getDni())){
+				if (dni.equals(e.getDni())) {
 					e.asignarUsuario(usuario);
-				}	
+				}
 			}
 		}
 		System.out.println("No hay empleados cargados en el sistema.");
 	}
-	
+
+	public Item getItemDetalle(DescripcionArticulo descripcion, int cantidad) {
+		if (cantidad > 0) {
+			for (Articulo art : articulos) {
+				if (art.getDescripcion().equals(descripcion) && art.getStock() >= cantidad) {
+					art.quitarStock(cantidad);
+					return new Item(art, cantidad);
+				}
+			}
+		}
+		return null;
+	}
+
 	public void agregarCliente(Cliente cliente) {
 		clientes.add(cliente);
 	}
-	
+
 	public void agregarInstalacion(Instalacion instalacion) {
 		instalaciones.add(instalacion);
 	}
-	
+
 	public CallCenter getCallcenter() {
 		return callcenter;
 	}
+
 	public EquipoTecnico getEquipoTecnico() {
 		return equipoTecnico;
 	}
+
 	public AreaAdministrador getAreaAdministracion() {
 		return areaAdministracion;
 	}
+
 	public AreaSistema getAreaSistema() {
 		return areaSistema;
 	}
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
+
 	public List<Instalacion> getInstalaciones() {
 		return instalaciones;
 	}
+
 	public List<Articulo> getArticulos() {
 		return articulos;
 	}
+
 	public List<Empleado> getEmpleados() {
 		return empleados;
 	}
-	
-	
-	
-	
-	
 
 }

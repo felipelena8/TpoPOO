@@ -20,7 +20,6 @@ static ControladorPantalla controladorPantalla;
 	public void mostrarPantallaGrande(JFrame frame) {
 		frame.setVisible(true);
 		frame.setSize(800, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(400, 200);
 	}
 	

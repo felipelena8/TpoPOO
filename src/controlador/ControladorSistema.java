@@ -6,15 +6,19 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import excepciones.FacturaException;
+import modelo.Articulo;
 import modelo.Cliente;
 import modelo.Empleado;
 import modelo.Factura;
 import modelo.Instalacion;
+import modelo.Item;
 import modelo.Sistema;
 import modelo.costos.Costo;
+import modelo.enums.DescripcionArticulo;
 import modelo.enums.Perfil;
 import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
+import solicitudes.SolicitudFactura;
 
 public class ControladorSistema {
 
@@ -187,8 +191,64 @@ public class ControladorSistema {
 		return modelo;
 	}
 
+	public DefaultTableModel informacionFacturas() {
+		DefaultTableModel modelo = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		modelo.setColumnIdentifiers("Numero Factura-Cliente-Tipo de factura-Cantidad de Items-Precio total".split("-"));
+		for (Factura f : sistema.getAreaAdministracion().listarFacturas()) {
+			modelo.addRow(new Object[] { f.getNumero(), f.getCliente().getDni(), f.getTipo(),
+					f.getItemsDetalle().size(), f.calcularTotalFactura() });
+		}
+		return modelo;
+	}
+
 	public static Empleado getEmpleadoLogueado() {
 		return empleadoLogueado;
 	}
+
+	public boolean agregarItemDetalle(long nroFactura, DescripcionArticulo descr, int cantidad) {
+		Factura f = buscarFactura(nroFactura);
+		Item item = sistema.getItemDetalle(descr, cantidad);
+		if (item == null) {
+			return false;
+		} else {
+			f.agregarItemDetalle(item);
+			return true;
+		}
+
+	}
+
+	public boolean emitirFactura(SolicitudFactura soli, String correo) {
+		Cliente cliente = buscarClientePorCorreo(correo);
+		if (cliente == null) {
+			return false;
+		}
+		Factura f = new Factura(soli.getTipo(), cliente);
+		sistema.getAreaAdministracion().emitirFactura(f);
+		cliente.agregarFactura(f);
+		return true;
+
+	}
+
+	public boolean agregarArticulo(DescripcionArticulo descr, int cantidad) {
+		if (cantidad > 0) {
+			for (Articulo art : sistema.getArticulos()) {
+				if (art.getDescripcion().equals(descr)) {
+					art.agregarStock(cantidad);
+					return true;
+				}
+			}
+			sistema.getArticulos().add(new Articulo(descr, cantidad));
+		}
+		return false;
+	}
+
 
 }
