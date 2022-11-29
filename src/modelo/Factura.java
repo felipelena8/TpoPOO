@@ -78,4 +78,8 @@ public class Factura {
 		
 		return modelo;
 	}
+
+	public static double getIva() {
+		return IVA;
+	}
 }
