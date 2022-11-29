@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -65,11 +64,11 @@ public class PantallaLogin extends JFrame {
 		class HandlerBtnAceptar implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (controladorSistema.usuarioExiste(usernameField.getText(), passwordField.getText())) {
+				controladorSistema.ingresarUsuario(usernameField.getText(), passwordField.getText());
+				if (controladorSistema.getEmpleadoLogueado() != null) {
 					System.out.println("El usuario " + usernameField.getText() + " ha ingresado al sistema.");
 					cerrarVentana();
 					controladorPantalla.mostrarPantallaChica(new PantallaMenu());
-
 				} else {
 					System.out.println("Las credenciales ingresadas son incorrectas");
 					JOptionPane.showMessageDialog(btnAccess, "Las credenciales ingresadas son incorrectas");
