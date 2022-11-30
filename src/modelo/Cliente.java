@@ -25,7 +25,7 @@ public void agregarFactura(Factura factura) {
 }
 
 public boolean soyCliente(String cc) {
-	return cc == cuitCuil;
+	return cc.equals(this.cuitCuil);
 }
 public String getTelefono() {
 	return telefono;

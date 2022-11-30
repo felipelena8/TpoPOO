@@ -55,6 +55,18 @@ public class PantallaInstalacionesTecnico extends JFrame {
 		containerForm.add(comboEstado);
 		containerForm.add(btnGuardar);
 		this.add(containerForm);
+	
+		JButton btnAtras = new JButton("Volver");
+		this.add(btnAtras);
+		
+		btnAtras.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cerrarVentana();
+				controladorPantalla.mostrarPantallaChica(new PantallaMenu());
+			}
+		});
+		
 		tablaInstalaciones.addMouseListener(new MouseListener() {
 
 			@Override
@@ -111,5 +123,8 @@ public class PantallaInstalacionesTecnico extends JFrame {
 			}
 		});
 
+	}
+	public void cerrarVentana() {
+		this.dispose();
 	}
 }

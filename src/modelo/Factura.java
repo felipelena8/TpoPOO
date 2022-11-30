@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import modelo.enums.DescripcionArticulo;
 import modelo.enums.TipoFactura;
 
 public class Factura {
@@ -41,13 +42,23 @@ public class Factura {
 	public void agregarItemDetalle(Item item) {
 		for (Item i : itemsDetalle) {
 			if (i.getArticulo().getDescripcion().equals(item.getArticulo().getDescripcion())) {
-				System.out.println(i.getCantidad());
 				i.setCantidad(i.getCantidad() + item.getCantidad());
 				
 				return;
 			}
 		}
 		itemsDetalle.add(item);
+	}
+	
+	public void setItemDetalle(DescripcionArticulo descripcion, int cantidad) {
+		for (Item i : itemsDetalle) {
+			if (i.getArticulo().getDescripcion().equals(descripcion)) {
+				i.setCantidad(cantidad);
+				return;
+			}
+		}
+		itemsDetalle.add(new Item(new Articulo(descripcion, 0),cantidad));
+		calcularTotalFactura();
 	}
 
 	public Factura(TipoFactura tipo, Cliente cliente) {
@@ -73,7 +84,7 @@ public class Factura {
 		DefaultTableModel modelo = new DefaultTableModel();
 		modelo.setColumnIdentifiers("Descripcion-Cantidad-Valor unitario-Valor total".split("-"));
 		for(Item i: itemsDetalle) {
-			modelo.addRow(new Object[] {i.getArticulo().getDescripcion(), i.getCantidad(), i.getArticulo().getPrecio(), i.getTotal()});
+			modelo.addRow(new Object[] {i.getArticulo().getDescripcion(), i.getCantidad(), i.getArticulo().getPrecio(), i.calcularTotalItem()});
 		}
 		
 		return modelo;

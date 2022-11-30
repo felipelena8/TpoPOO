@@ -35,5 +35,6 @@ static ControladorPantalla controladorPantalla;
 	public void cerrarPantalla(JFrame frame){
 		frame.dispose();
 	}
+
 	
 }

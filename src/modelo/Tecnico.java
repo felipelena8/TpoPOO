@@ -63,4 +63,11 @@ public class Tecnico extends Empleado{
 		return modelo;
 	}
 
+	public void eliminarInstalacion(Instalacion instalacion) {
+		for (int i = 0; i < instalaciones.size(); i++) {
+			if(instalaciones.get(i).equals(instalacion)) {
+				instalaciones.remove(i);
+			}
+		}
+	}
 }
