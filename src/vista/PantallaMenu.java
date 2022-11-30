@@ -17,7 +17,7 @@ public class PantallaMenu extends JFrame {
 
 	private ControladorPantalla controladorPantalla;
 	private ControladorSistema controladorSistema;
-	JButton btnFacturas, btnUsuarios, btnInstalaciones, btnClientes;
+	JButton btnFacturas, btnUsuarios, btnInstalaciones, btnClientes, btnConfig;
 
 	public PantallaMenu() {
 		super("Menu");
@@ -31,26 +31,32 @@ public class PantallaMenu extends JFrame {
 		btnFacturas = new JButton("Ver facturas");
 		Container btnFacturasContainer = new Container();
 		btnFacturasContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnFacturasContainer.setBounds(50, 50, 200, 30);
+		btnFacturasContainer.setBounds(50, 30, 200, 30);
 		btnFacturasContainer.add(btnFacturas);
 
 		btnUsuarios = new JButton("Ver usuarios");
 		Container btnUsuariosContainer = new Container();
 		btnUsuariosContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnUsuariosContainer.setBounds(50, 90, 200, 30);
+		btnUsuariosContainer.setBounds(50, 70, 200, 30);
 		btnUsuariosContainer.add(btnUsuarios);
 
 		btnInstalaciones = new JButton("Ver instalaciones");
 		Container btnInstalacionesContainer = new Container();
 		btnInstalacionesContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnInstalacionesContainer.setBounds(50, 130, 200, 30);
+		btnInstalacionesContainer.setBounds(50, 110, 200, 30);
 		btnInstalacionesContainer.add(btnInstalaciones);
 
 		btnClientes = new JButton("Ver clientes");
 		Container btnClientesContainer = new Container();
 		btnClientesContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnClientesContainer.setBounds(50, 170, 200, 30);
+		btnClientesContainer.setBounds(50, 150, 200, 30);
 		btnClientesContainer.add(btnClientes);
+
+		btnConfig = new JButton("Configuracion sistema");
+		Container btnConfigContainer = new Container();
+		btnConfigContainer.setLayout(new GridLayout(1, 2, 2, 2));
+		btnConfigContainer.setBounds(50, 190, 200, 30);
+		btnConfigContainer.add(btnConfig);
 
 		JFrame pantalla = this;
 		
@@ -79,10 +85,19 @@ public class PantallaMenu extends JFrame {
 			}
 		});
 
+		btnConfig.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controladorPantalla.cerrarPantalla(pantalla);
+				controladorPantalla.mostrarPantallaGrande(new PantallaConfiguracionSistema());
+			}
+		});
+
 		switch (controladorSistema.getEmpleadoLogueado().getPerfil()) {
 		case ADMINISTRADOR:
 			btnUsuarios.setEnabled(false);
 			btnClientes.setEnabled(false);
+			btnConfig.setEnabled(false);
 			break;
 		case ADMINISTRADOR_SISTEMA:
 			btnFacturas.setEnabled(false);
@@ -94,9 +109,11 @@ public class PantallaMenu extends JFrame {
 			btnFacturas.setEnabled(false);
 			btnUsuarios.setEnabled(false);
 			btnClientes.setEnabled(false);
+			btnConfig.setEnabled(false);
 			break;
 		case OPERADOR:
 			btnFacturas.setEnabled(false);
+			btnConfig.setEnabled(false);
 			break;
 		}
 
@@ -104,6 +121,7 @@ public class PantallaMenu extends JFrame {
 		panel.add(btnUsuariosContainer);
 		panel.add(btnInstalacionesContainer);
 		panel.add(btnClientesContainer);
+		panel.add(btnConfigContainer);
 
 		this.add(panel, BorderLayout.CENTER);
 	}
