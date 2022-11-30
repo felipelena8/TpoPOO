@@ -18,6 +18,7 @@ import modelo.costos.Costo;
 import modelo.enums.DescripcionArticulo;
 import modelo.enums.Perfil;
 import modelo.enums.Seniority;
+import modelo.equipos.EquipoTecnico;
 import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudFactura;
@@ -247,11 +248,10 @@ public class ControladorSistema {
 			}
 		};
 		modelo.setColumnIdentifiers("Seniority-Sueldo por Hora".split("-"));
-		/*
-		 * for (Seniority seniority : Seniority.values()) { modelo.addRow(new Object[] {
-		 * articulo.getDescripcion().name(), articulo.getStock(),
-		 * articulo.getDescripcion().getPrecio() }); }
-		 */
+		EquipoTecnico equipoTecnico = sistema.getEquipoTecnico();
+		for (Seniority seniority : Seniority.values()){
+			modelo.addRow(new Object[] { seniority.name(), equipoTecnico.obtenerSueldo(seniority) });
+		}
 		return modelo;
 	}
 

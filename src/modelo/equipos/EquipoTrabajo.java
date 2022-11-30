@@ -36,15 +36,15 @@ public abstract class EquipoTrabajo {
 		}	
 	}
 	
-	protected void setSueldoJunior(Double sueldo) {
+	public void setSueldoJunior(Double sueldo) {
 		this.sueldoJunior = sueldo;
 	}
 	
-	protected void setSueldoSemisenior(Double sueldo) {
+	public void setSueldoSemisenior(Double sueldo) {
 		this.sueldoSemisenior = sueldo;
 	}
 
-	protected void setSueldoSenior(Double sueldo) {
+	public void setSueldoSenior(Double sueldo) {
 		this.sueldoSenior = sueldo;
 	}
 	
