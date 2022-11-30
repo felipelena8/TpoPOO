@@ -1,6 +1,7 @@
 package modelo;
 
 import modelo.enums.Perfil;
+import modelo.enums.Seniority;
 
 public class Empleado extends Persona{
 	
@@ -8,11 +9,13 @@ public class Empleado extends Persona{
 	
 	private Usuario usuario;
 	
+	private Seniority seniority;
 
-	public Empleado(String nombre, String apellido, String dni, Perfil perfil, String username, String password) {
+	public Empleado(String nombre, String apellido, String dni, Perfil perfil, String username, String password, Seniority seniority) {
 		super(nombre, apellido, dni);
 		this.perfil = perfil;
 		usuario = new Usuario(username, password);
+		this.seniority = seniority;
 	}
 	
 	public Perfil getPerfil() {
@@ -33,6 +36,10 @@ public class Empleado extends Persona{
 	
 	public Usuario getUsuario() {
 		return usuario;
+	}
+	
+	public Seniority getSeniority() {
+		return this.seniority;
 	}
 
 }

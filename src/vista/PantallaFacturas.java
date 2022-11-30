@@ -3,11 +3,15 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,6 +42,25 @@ public class PantallaFacturas extends JFrame {
 		panel.add(containerTabla);
 		
 		this.add(panel, BorderLayout.CENTER);
+		
+		JButton btnAtras = new JButton("Volver");
+		btnAtras.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controladorPantalla.mostrarPantallaChica(new PantallaMenu());
+				cerrarVentana();
+			}
+		});
+		
+		
+		Container containerAtras = new Container();
+		containerAtras.setBounds(0, 0, 300, 100);
+		containerAtras.setLayout(new FlowLayout(FlowLayout.LEFT));
+		containerAtras.add(btnAtras);
+		
+		panel.add(containerAtras);
+		
+		
 		tabla.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -71,5 +94,9 @@ public class PantallaFacturas extends JFrame {
 				controladorPantalla.mostrarPantallaGrande(new PantallaInformacionFactura(f));
 			}
 		});
+	}
+	
+	private void cerrarVentana() {
+		controladorPantalla.cerrarPantalla(this);
 	}
 }

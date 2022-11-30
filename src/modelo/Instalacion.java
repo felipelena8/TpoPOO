@@ -8,6 +8,8 @@ import modelo.enums.EstadoInstalacion;
 
 
 public class Instalacion {
+
+
 private static long idCount;
 private long id;
 private EstadoInstalacion estado;
@@ -72,5 +74,6 @@ public Tecnico getTecnico() {
 public Cliente getCliente() {
 	return cliente;
 }
+
 
 }

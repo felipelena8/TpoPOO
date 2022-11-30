@@ -1,6 +1,7 @@
 package solicitudes;
 
 import modelo.enums.Perfil;
+import modelo.enums.Seniority;
 
 public class SolicitudEmpleado {
 	
@@ -16,13 +17,16 @@ public class SolicitudEmpleado {
 	
 	private String password;
 	
-	public SolicitudEmpleado(String nombre, String apellido, String dni, Perfil perfil, String username, String password) {
+	private Seniority seniority;
+	
+	public SolicitudEmpleado(String nombre, String apellido, String dni, Perfil perfil, String username, String password, Seniority seniority) {
 		this.nombre = nombre;
 		this.dni = dni;
 		this.apellido = apellido;
 		this.perfil = perfil;
 		this.username = username;
 		this.password = password;
+		this.seniority = seniority;
 	}
 
 	public Perfil getPerfil() {
@@ -47,6 +51,10 @@ public class SolicitudEmpleado {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public Seniority getSeniority() {
+		return seniority;
 	}
 
 }
