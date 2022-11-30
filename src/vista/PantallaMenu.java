@@ -3,9 +3,12 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +20,7 @@ public class PantallaMenu extends JFrame {
 
 	private ControladorPantalla controladorPantalla;
 	private ControladorSistema controladorSistema;
-	JButton btnFacturas, btnUsuarios, btnInstalaciones, btnClientes, btnConfig;
+	JButton btnFacturas, btnUsuarios, btnInstalaciones, btnClientes, btnConfig, btnLogout;
 
 	public PantallaMenu() {
 		super("Menu");
@@ -31,44 +34,50 @@ public class PantallaMenu extends JFrame {
 		btnFacturas = new JButton("Ver facturas");
 		Container btnFacturasContainer = new Container();
 		btnFacturasContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnFacturasContainer.setBounds(50, 30, 200, 30);
+		btnFacturasContainer.setBounds(50, 20, 200, 30);
 		btnFacturasContainer.add(btnFacturas);
 
 		btnUsuarios = new JButton("Ver usuarios");
 		Container btnUsuariosContainer = new Container();
 		btnUsuariosContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnUsuariosContainer.setBounds(50, 70, 200, 30);
+		btnUsuariosContainer.setBounds(50, 60, 200, 30);
 		btnUsuariosContainer.add(btnUsuarios);
 
 		btnInstalaciones = new JButton("Ver instalaciones");
 		Container btnInstalacionesContainer = new Container();
 		btnInstalacionesContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnInstalacionesContainer.setBounds(50, 110, 200, 30);
+		btnInstalacionesContainer.setBounds(50, 100, 200, 30);
 		btnInstalacionesContainer.add(btnInstalaciones);
 
 		btnClientes = new JButton("Ver clientes");
 		Container btnClientesContainer = new Container();
 		btnClientesContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnClientesContainer.setBounds(50, 150, 200, 30);
+		btnClientesContainer.setBounds(50, 140, 200, 30);
 		btnClientesContainer.add(btnClientes);
 
 		btnConfig = new JButton("Configuracion sistema");
 		Container btnConfigContainer = new Container();
 		btnConfigContainer.setLayout(new GridLayout(1, 2, 2, 2));
-		btnConfigContainer.setBounds(50, 190, 200, 30);
+		btnConfigContainer.setBounds(50, 180, 200, 30);
 		btnConfigContainer.add(btnConfig);
 
+		btnLogout = new JButton("Logout");
+		Container btnLogoutContainer = new Container();
+		btnLogoutContainer.setLayout(new GridLayout(1, 2, 2, 2));
+		btnLogoutContainer.setBounds(50, 220, 100, 30);
+		btnLogoutContainer.add(btnLogout);
+
 		JFrame pantalla = this;
-		
+
 		btnFacturas.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controladorPantalla.cerrarPantalla(pantalla);	
+				controladorPantalla.cerrarPantalla(pantalla);
 				controladorPantalla.mostrarPantallaGrande(new PantallaFacturas());
 			}
-		});		
-		
+		});
+
 		btnInstalaciones.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,6 +99,14 @@ public class PantallaMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				controladorPantalla.cerrarPantalla(pantalla);
 				controladorPantalla.mostrarPantallaGrande(new PantallaConfiguracionSistema());
+			}
+		});
+
+		btnLogout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controladorPantalla.mostrarPantallaChica(new PantallaLogin());
+				cerrarVentana();
 			}
 		});
 
@@ -122,7 +139,12 @@ public class PantallaMenu extends JFrame {
 		panel.add(btnInstalacionesContainer);
 		panel.add(btnClientesContainer);
 		panel.add(btnConfigContainer);
+		panel.add(btnLogoutContainer);
 
 		this.add(panel, BorderLayout.CENTER);
+	}
+
+	private void cerrarVentana() {
+		controladorPantalla.cerrarPantalla(this);
 	}
 }
