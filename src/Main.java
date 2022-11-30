@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
 import modelo.Sistema;
+import modelo.Tecnico;
 import modelo.enums.DescripcionArticulo;
 import modelo.enums.Perfil;
 import modelo.enums.TipoFactura;
@@ -8,6 +11,7 @@ import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudFactura;
 import vista.PantallaLogin;
+import vista.PantallaTecnicos;
 
 public class Main {
 
@@ -37,9 +41,9 @@ public class Main {
 		controladorSistema.agregarItemDetalle(0, DescripcionArticulo.KIT_DE_INSTALACION, 6);
 		controladorSistema.agregarItemDetalle(1, DescripcionArticulo.EVAPORADORA, 10);
 		controladorSistema.agregarItemDetalle(1, DescripcionArticulo.CONDENSADORA, 3);
-		System.out.println("asd");
+	
 		controladorPantalla.mostrarPantallaChica(new PantallaLogin());
-		
+		controladorPantalla.mostrarPantallaGrande(new PantallaTecnicos(new ArrayList<Tecnico>()));
 	}
 
 }
