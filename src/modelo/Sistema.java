@@ -65,6 +65,16 @@ public class Sistema {
 		}
 		return null;
 	}
+	
+	public boolean eliminarEmpleado(Empleado e) {
+		for(int i = 0; i< empleados.size(); i++) {
+			if(empleados.get(i).equals(e)) {
+				empleados.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void agregarCliente(Cliente cliente) {
 		clientes.add(cliente);

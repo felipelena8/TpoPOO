@@ -45,7 +45,7 @@ public class PantallaInstalaciones extends JFrame {
 
 	private DateTimePicker dateTimePickerFechaInicio, dateTimePickerFechaFin;
 
-	private Instalacion instalacionSeleccionada;
+	private Instalacion instalacionSeleccionada = null;
 
 	public PantallaInstalaciones() {
 
@@ -163,7 +163,7 @@ public class PantallaInstalaciones extends JFrame {
 				LocalDateTime fIni = dateTimePickerFechaInicio.getDateTimeStrict();
 				LocalDateTime fFin = dateTimePickerFechaFin.getDateTimeStrict();
 				if (6 <= fIni.getHour() && fIni.getHour() <= 19 && 7 <= fFin.getHour() && fFin.getHour() <= 20
-						&& fFin.getHour() >= fIni.getHour() + 1) {
+						&& fFin.getHour() >= fIni.getHour() + 1 && fIni.isBefore(fFin)) {
 
 					if (fIni != null && fFin != null) {
 						controladorPantalla.mostrarPantallaGrande(new PantallaSeleccionCliente(fIni, fFin));
@@ -199,8 +199,14 @@ public class PantallaInstalaciones extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controladorSistema.eliminarInstalacion(instalacionSeleccionada);
-				actualizarTabla();
+				if(instalacionSeleccionada == null) {
+					JOptionPane.showMessageDialog(null, "No hay ninguna instalacion seleccionada para eliminar");
+				}else {
+					controladorSistema.eliminarInstalacion(instalacionSeleccionada);
+					actualizarTabla();
+					instalacionSeleccionada=null;
+				}
+				
 			}
 		});
 

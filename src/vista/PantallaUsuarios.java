@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -29,7 +30,8 @@ public class PantallaUsuarios extends JFrame {
 
 	private ControladorPantalla controladorPantalla;
 	private ControladorSistema controladorSistema;
-	private Empleado empleadoSelec = null;
+	private int idEmpleado = -1;
+	
 	public PantallaUsuarios() {
 
 		super("Listado de usuarios");
@@ -125,7 +127,20 @@ public class PantallaUsuarios extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = tablaUsuarios.rowAtPoint(e.getPoint());
-				
+				idEmpleado = Integer.parseInt(tablaUsuarios.getValueAt(row, 0).toString());
+			}
+		});
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(controladorSistema.eliminarEmpleado(idEmpleado)) {
+					JOptionPane.showMessageDialog(null, "Se ha eliminado el empleado");
+					actualizarTabla();
+				}else {
+					JOptionPane.showMessageDialog(null, "No se ha podido eliminar el empleado");
+				}
 			}
 		});
 

@@ -45,14 +45,6 @@ public class Main {
 		controladorSistema.agregarArticulo(DescripcionArticulo.KIT_DE_INSTALACION, 12);
 		controladorSistema.agregarArticulo(DescripcionArticulo.SOPORTE_PARED, 6);
 		controladorSistema.agregarArticulo(DescripcionArticulo.CONDENSADORA, 4);
-		
-		controladorSistema.agregarItemDetalle(0, DescripcionArticulo.EVAPORADORA, 20);
-		controladorSistema.agregarItemDetalle(0, DescripcionArticulo.CONDENSADORA,5);
-		controladorSistema.agregarItemDetalle(0, DescripcionArticulo.CONDENSADORA,4);
-		controladorSistema.agregarItemDetalle(0, DescripcionArticulo.SOPORTE_PARED, 3);
-		controladorSistema.agregarItemDetalle(0, DescripcionArticulo.KIT_DE_INSTALACION, 6);
-		controladorSistema.agregarItemDetalle(1, DescripcionArticulo.EVAPORADORA, 10);
-		controladorSistema.agregarItemDetalle(1, DescripcionArticulo.CONDENSADORA, 3);
 
 		controladorPantalla.mostrarPantallaChica(new PantallaLogin());
 		//controladorSistema.asignarInstalacion(Sistema.getInstance().getEquipoTecnico().getTecnicos().get(0), new SolicitudInstalacion(LocalDateTime.MIN, LocalDateTime.MIN, Sistema.getInstance().getClientes().get(0)));

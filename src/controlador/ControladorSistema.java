@@ -143,6 +143,20 @@ public class ControladorSistema {
 				cliente.getTelefono(), cliente.getCuitCuil(), cliente.getCorreoElectronico(), cliente.getDireccion()));
 		return true;
 	}
+	
+	public boolean eliminarEmpleado(int id) {
+		Empleado e = buscarEmpleado(id);
+		return Sistema.getInstance().eliminarEmpleado(e);
+	}
+	
+	public Empleado buscarEmpleado(int id) {
+		for(Empleado e: Sistema.getInstance().getEmpleados()) {
+			if(e.getUsuario().getId() == id) {
+				return e;
+			}
+		}
+		return null;
+	}
 
 	public DefaultTableModel informacionClientes() {
 		DefaultTableModel modelo = new DefaultTableModel() {
