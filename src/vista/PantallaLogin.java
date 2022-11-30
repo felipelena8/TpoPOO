@@ -66,7 +66,6 @@ public class PantallaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				controladorSistema.ingresarUsuario(usernameField.getText(), passwordField.getText());
 				if (controladorSistema.getEmpleadoLogueado() != null) {
-					System.out.println("El usuario " + usernameField.getText() + " ha ingresado al sistema.");
 					cerrarVentana();
 					controladorPantalla.mostrarPantallaChica(new PantallaMenu());
 				} else {

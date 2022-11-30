@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,6 +20,7 @@ import javax.swing.JTable;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
+import modelo.Empleado;
 
 public class PantallaUsuarios extends JFrame {
 	private JTable tablaUsuarios;
@@ -26,7 +29,7 @@ public class PantallaUsuarios extends JFrame {
 
 	private ControladorPantalla controladorPantalla;
 	private ControladorSistema controladorSistema;
-
+	private Empleado empleadoSelec = null;
 	public PantallaUsuarios() {
 
 		super("Listado de usuarios");
@@ -77,6 +80,54 @@ public class PantallaUsuarios extends JFrame {
 				cerrarVentana();
 			}
 		});
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controladorPantalla.mostrarPantallaGrande(new PantallaAgregarEmpleado());
+			}
+		});
+
+		btnActualizar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				actualizarTabla();
+			}
+		});
+		
+		tablaUsuarios.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = tablaUsuarios.rowAtPoint(e.getPoint());
+				
+			}
+		});
 
 		Container containerAtras = new Container();
 		containerAtras.setBounds(0, 0, 300, 100);
@@ -90,7 +141,7 @@ public class PantallaUsuarios extends JFrame {
 	}
 
 	public void actualizarTabla() {
-		tablaUsuarios.setModel(controladorSistema.informacionInstalaciones());
+		tablaUsuarios.setModel(controladorSistema.informacionUsuarios());
 	}
 
 	private void cerrarVentana() {

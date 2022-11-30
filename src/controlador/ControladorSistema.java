@@ -43,22 +43,15 @@ public class ControladorSistema {
 		}
 	}
 
-	public void agregarEmpleado(SolicitudEmpleado solicitud) {
+	public boolean agregarEmpleado(SolicitudEmpleado solicitud) {
 		if (!empleadoExiste(solicitud.getDni())) {
 			sistema.agregarEmpleado(new Empleado(solicitud.getNombre(), solicitud.getApellido(), solicitud.getDni(),
 					solicitud.getPerfil(), solicitud.getUsername(), solicitud.getPassword(), solicitud.getSeniority()));
-			System.out.println("El empleado " + solicitud.getNombre() + " " + solicitud.getApellido()
-					+ " ha sido agregado al sistema.");
-		}
-	}
 
-	public Cliente buscarClientePorCorreo(String correo) {
-		for (Cliente cliente : sistema.getClientes()) {
-			if (cliente.getCorreoElectronico().equals(correo)) {
-				return cliente;
-			}
+			return true;
+		} else {
+			return false;
 		}
-		return null;
 	}
 
 	public Cliente buscarClientePorDni(String dni) {
@@ -103,16 +96,22 @@ public class ControladorSistema {
 			for (Empleado e : sistema.getEmpleados()) {
 				if (e.getUsuario().validarCredenciales(username, password)) {
 					empleadoLogueado = e;
+					return;
 				}
 			}
 		}
+		empleadoLogueado = null;
 	}
 
-	public void crearTecnico(SolicitudTecnico tecnico) {
+	public boolean crearTecnico(SolicitudTecnico tecnico) {
+		if (empleadoExiste(tecnico.getDni())) {
+			return false;
+		}
 		Sistema.getInstance().getEquipoTecnico()
 				.agregarTecnico(new Tecnico(tecnico.getNombre(), tecnico.getApellido(), tecnico.getDni(),
 						tecnico.getRol(), tecnico.getTurno(), tecnico.getUsuario(), tecnico.getPassword(),
 						tecnico.getSeniority()));
+		return true;
 	}
 
 	private boolean empleadoExiste(String dni) {
@@ -171,11 +170,11 @@ public class ControladorSistema {
 				return false;
 			}
 		};
-		modelo.setColumnIdentifiers("ID Usuario-Nombre-Apellido-DNI-Usuario-Perfil".split("-"));
+		modelo.setColumnIdentifiers("ID Usuario-Nombre-Apellido-DNI-Usuario-Perfil-Seniority".split("-"));
 		for (Empleado e : sistema.getEmpleados()) {
 			if (e.usuarioAsignado()) {
 				modelo.addRow(new Object[] { e.getUsuario().getId(), e.getNombre(), e.getApellido(), e.getDni(),
-						e.getUsuario().getUsername(), e.getPerfil() });
+						e.getUsuario().getUsername(), e.getPerfil(), e.getSeniority() });
 			}
 		}
 		return modelo;
@@ -249,7 +248,7 @@ public class ControladorSistema {
 		};
 		modelo.setColumnIdentifiers("Seniority-Sueldo por Hora".split("-"));
 		EquipoTecnico equipoTecnico = sistema.getEquipoTecnico();
-		for (Seniority seniority : Seniority.values()){
+		for (Seniority seniority : Seniority.values()) {
 			modelo.addRow(new Object[] { seniority.name(), equipoTecnico.obtenerSueldo(seniority) });
 		}
 		return modelo;
@@ -268,35 +267,21 @@ public class ControladorSistema {
 			f.agregarItemDetalle(item);
 			return true;
 		}
-
 	}
-	//Ya no se utiliza
-	public boolean emitirFactura(SolicitudFactura soli, String correo) {
-		Cliente cliente = buscarClientePorCorreo(correo);
-		if (cliente == null) {
-			return false;
-		}
-		Factura f = new Factura(soli.getTipo(), cliente);
-		sistema.getAreaAdministracion().emitirFactura(f);
-		cliente.agregarFactura(f);
-		return true;
 
-	}
-	
 	public boolean emitirFactura(SolicitudFactura soli, Instalacion i) {
 		if (i.getCliente() == null) {
 			return false;
 		}
 		Factura f = new Factura(soli.getTipo(), i.getCliente());
-		for(Item item: i.getArticulos()) {
+		for (Item item : i.getArticulos()) {
 			f.agregarItemDetalle(item);
 		}
 		sistema.getAreaAdministracion().emitirFactura(f);
-		
+
 		return true;
 
 	}
-
 
 	public boolean agregarArticulo(DescripcionArticulo descr, int cantidad) {
 		if (cantidad > 0) {
@@ -310,7 +295,7 @@ public class ControladorSistema {
 		}
 		return false;
 	}
-	
+
 	public Tecnico buscarTecnicoDni(String dni) {
 		return Sistema.getInstance().getEquipoTecnico().buscarTecnicoDni(dni);
 	}
@@ -319,7 +304,7 @@ public class ControladorSistema {
 		return Sistema.getInstance().getEquipoTecnico().obtenerTecnicosDisponibles(soli.getFechaInicio(),
 				soli.getFechaFin());
 	}
-	
+
 	public void asignarInstalacion(Tecnico tecnico, SolicitudInstalacion solicitudInstalacion) {
 		Sistema.getInstance().getEquipoTecnico().asignarInstalacion(tecnico, solicitudInstalacion);
 	}
@@ -327,10 +312,10 @@ public class ControladorSistema {
 	public static Sistema getSistema() {
 		return sistema;
 	}
-	
+
 	public Instalacion buscarInstalacion(long id) {
-		for(Instalacion i: Sistema.getInstance().getInstalaciones()) {
-			if(i.getId() == id) {
+		for (Instalacion i : Sistema.getInstance().getInstalaciones()) {
+			if (i.getId() == id) {
 				return i;
 			}
 		}
@@ -340,19 +325,17 @@ public class ControladorSistema {
 	public void eliminarInstalacion(Instalacion instalacion) {
 		List<Instalacion> instalaciones = Sistema.getInstance().getInstalaciones();
 		for (int i = 0; i < instalaciones.size(); i++) {
-			if(instalaciones.get(i).equals(instalacion)) {
+			if (instalaciones.get(i).equals(instalacion)) {
 				instalaciones.remove(i);
 				JOptionPane.showMessageDialog(null, "La instalacion ha sido eliminada");
 				break;
-				
+
 			}
 		}
-		if(instalacion.getTecnico()!= null) {
+		if (instalacion.getTecnico() != null) {
 			instalacion.getTecnico().eliminarInstalacion(instalacion);
 		}
-		
-		
-		
+
 	}
 
 }
