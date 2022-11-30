@@ -101,12 +101,12 @@ public class EquipoTecnico extends EquipoTrabajo {
 		if (!tecnico.getInstalaciones().isEmpty()) {
 
 			for (int i = 0; i < tecnico.getInstalaciones().size(); i++) {
+				Instalacion instalacion = tecnico.getInstalaciones().get(i);
 				if (tecnico.getInstalaciones().get(i).getFechaFin().isBefore(req.getFechaInicio())) {
 
-					Instalacion instalacion = tecnico.getInstalaciones().get(i);
 					if (((instalacion.getFechaFin().getHour() + horasTrabajo) <= tecnico.getTurno().getFin()
-							|| (i < tecnico.getInstalaciones().size() - 1 && tecnico.getInstalaciones().get(i + 1)
-									.getFechaInicio().isAfter(req.getFechaInicio())))) {
+							|| (i < tecnico.getInstalaciones().size() - 1 && 
+									tecnico.getInstalaciones().get(i + 1).getFechaInicio().isAfter(req.getFechaInicio())))) {
 						inicio = instalacion.getFechaFin();
 						fin = inicio.plusHours(horasTrabajo);
 						return new Instalacion(inicio, fin, req.getCliente());
@@ -114,16 +114,40 @@ public class EquipoTecnico extends EquipoTrabajo {
 
 				}
 				if (i == tecnico.getInstalaciones().size() - 1) {
-					Instalacion instalacion = tecnico.getInstalaciones().get(i);
-					inicio = instalacion.getFechaFin();
-					fin = inicio.plusHours(horasTrabajo);
+					
+					fin = instalacion.getFechaFin().plusHours(horasTrabajo);
+				
+					if(fin.getHour() <= tecnico.getTurno().getFin()) {
+						
+						inicio = instalacion.getFechaFin();
+							
+						
+					}else {
+						
+						inicio = inicio.minusHours(inicio.getHour()).minusMinutes(inicio.getMinute());
+						inicio = inicio.plusDays(1).plusHours(tecnico.getTurno().getInicio());
+						fin = inicio.plusHours(horasTrabajo);
+						
+					}
+					
+					
+					
 					return new Instalacion(inicio, fin, req.getCliente());
 				}
 
 			}
 
 		}
-		fin = req.getFechaInicio().plusHours(horasTrabajo);
+		
+		if(inicio.getHour() < tecnico.getTurno().getInicio()) {
+			inicio = inicio.minusHours(inicio.getHour()).minusMinutes(inicio.getMinute());
+			inicio = inicio.plusHours(tecnico.getTurno().getInicio());
+			
+			
+		}
+		
+		fin = inicio.plusHours(horasTrabajo);
+		
 		return new Instalacion(inicio, fin, req.getCliente());
 	}
 
