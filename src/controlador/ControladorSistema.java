@@ -16,6 +16,7 @@ import modelo.Sistema;
 import modelo.costos.Costo;
 import modelo.enums.DescripcionArticulo;
 import modelo.enums.Perfil;
+import modelo.enums.Seniority;
 import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudFactura;
@@ -209,6 +210,41 @@ public class ControladorSistema {
 		return modelo;
 	}
 
+	public DefaultTableModel informacionStock() {
+		DefaultTableModel modelo = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		modelo.setColumnIdentifiers("Descripcion-Stock-Precio Unitario".split("-"));
+		for (Articulo articulo : sistema.getArticulos()) {
+			modelo.addRow(new Object[] { articulo.getDescripcion().name(), articulo.getStock(),
+					articulo.getDescripcion().getPrecio() });
+		}
+		return modelo;
+	}
+
+	public DefaultTableModel informacionTecnicos() {
+		DefaultTableModel modelo = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		modelo.setColumnIdentifiers("Seniority-Sueldo por Hora".split("-"));
+		/*
+		 * for (Seniority seniority : Seniority.values()) { modelo.addRow(new Object[] {
+		 * articulo.getDescripcion().name(), articulo.getStock(),
+		 * articulo.getDescripcion().getPrecio() }); }
+		 */
+		return modelo;
+	}
+
 	public static Empleado getEmpleadoLogueado() {
 		return empleadoLogueado;
 	}
@@ -248,6 +284,10 @@ public class ControladorSistema {
 			sistema.getArticulos().add(new Articulo(descr, cantidad));
 		}
 		return false;
+	}
+
+	public static Sistema getSistema() {
+		return sistema;
 	}
 
 }
