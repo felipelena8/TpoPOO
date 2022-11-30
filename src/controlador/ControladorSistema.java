@@ -40,7 +40,7 @@ public class ControladorSistema {
 	public void agregarEmpleado(SolicitudEmpleado solicitud) {
 		if (!empleadoExiste(solicitud.getDni())) {
 			sistema.agregarEmpleado(new Empleado(solicitud.getNombre(), solicitud.getApellido(), solicitud.getDni(),
-					solicitud.getPerfil(), solicitud.getUsername(), solicitud.getPassword()));
+					solicitud.getPerfil(), solicitud.getUsername(), solicitud.getPassword(), solicitud.getSeniority()));
 			System.out.println("El empleado " + solicitud.getNombre() + " " + solicitud.getApellido()
 					+ " ha sido agregado al sistema.");
 		}

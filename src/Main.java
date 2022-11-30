@@ -3,6 +3,7 @@ import controlador.ControladorSistema;
 import modelo.Sistema;
 import modelo.enums.DescripcionArticulo;
 import modelo.enums.Perfil;
+import modelo.enums.Seniority;
 import modelo.enums.TipoFactura;
 import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
@@ -14,7 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		ControladorPantalla controladorPantalla = ControladorPantalla.getInstance();
 		ControladorSistema controladorSistema = ControladorSistema.getInstance();
-		SolicitudEmpleado solicitudEmpleado = new SolicitudEmpleado("Juan", "Perez", "1", Perfil.ADMINISTRADOR, "admin", "admin"); 
+		SolicitudEmpleado solicitudEmpleado = new SolicitudEmpleado("Juan", "Perez", "1", Perfil.ADMINISTRADOR, "admin", "admin", Seniority.SENIOR); 
 		controladorSistema.agregarCliente(new SolicitudCliente("Lucas", "Munoz", "19232232", "1158229501","20192322321","lucasmunoz@gmail.com","Calle 412"));
 		controladorSistema.agregarCliente(new SolicitudCliente("Felipe", "Costa", "44967716", "1167081366", "204496771602", "felipelena8@gmail.com", "calle 1234"));
 		controladorSistema.agregarEmpleado(solicitudEmpleado);
