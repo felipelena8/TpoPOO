@@ -53,6 +53,16 @@ public class PantallaMenu extends JFrame {
 		btnClientesContainer.add(btnClientes);
 
 		JFrame pantalla = this;
+		
+		btnFacturas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controladorPantalla.cerrarPantalla(pantalla);	
+				controladorPantalla.mostrarPantallaGrande(new PantallaFacturas());
+			}
+		});		
+		
 		btnInstalaciones.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -1,4 +1,5 @@
 package modelo;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Persona {
@@ -16,6 +17,7 @@ public Cliente(String nombre, String apellido, String dni, String telefono, Stri
 	this.cuitCuil = cuitCuil;
 	this.correoElectronico = correoElectronico;
 	this.direccion = direccion;
+	facturas = new ArrayList<Factura>();
 }
 
 public void agregarFactura(Factura factura) {
