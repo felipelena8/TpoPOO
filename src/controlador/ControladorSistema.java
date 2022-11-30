@@ -13,12 +13,15 @@ import modelo.Factura;
 import modelo.Instalacion;
 import modelo.Item;
 import modelo.Sistema;
+import modelo.Tecnico;
 import modelo.costos.Costo;
 import modelo.enums.DescripcionArticulo;
 import modelo.enums.Perfil;
 import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudFactura;
+import solicitudes.SolicitudInstalacion;
+import solicitudes.SolicitudTecnico;
 
 public class ControladorSistema {
 
@@ -101,6 +104,13 @@ public class ControladorSistema {
 				}
 			}
 		}
+	}
+
+	public void crearTecnico(SolicitudTecnico tecnico) {
+		Sistema.getInstance().getEquipoTecnico()
+				.agregarTecnico(new Tecnico(tecnico.getNombre(), tecnico.getApellido(), tecnico.getDni(),
+						tecnico.getRol(), tecnico.getTurno(), tecnico.getUsuario(), tecnico.getPassword(),
+						tecnico.getSeniority()));
 	}
 
 	private boolean empleadoExiste(String dni) {
@@ -248,6 +258,19 @@ public class ControladorSistema {
 			sistema.getArticulos().add(new Articulo(descr, cantidad));
 		}
 		return false;
+	}
+	
+	public Tecnico buscarTecnicoDni(String dni) {
+		return Sistema.getInstance().getEquipoTecnico().buscarTecnicoDni(dni);
+	}
+
+	public List<Tecnico> tecnicosDisponibles(SolicitudInstalacion soli) {
+		return Sistema.getInstance().getEquipoTecnico().obtenerTecnicosDisponibles(soli.getFechaInicio(),
+				soli.getFechaFin());
+	}
+	
+	public void asignarInstalacion(Tecnico tecnico, SolicitudInstalacion solicitudInstalacion) {
+		Sistema.getInstance().getEquipoTecnico().asignarInstalacion(tecnico, solicitudInstalacion);
 	}
 
 }

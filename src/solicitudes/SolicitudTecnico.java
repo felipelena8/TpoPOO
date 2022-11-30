@@ -7,7 +7,7 @@ import modelo.Turno;
 public class SolicitudTecnico {
 	private Turno turno;
 	private Seniority seniority;
-	private String nombre, apellido, usuario, password;
+	private String nombre, apellido, usuario, password, dni;
 	private Perfil rol;
 
 	public Seniority getSeniority() {
@@ -18,7 +18,7 @@ public class SolicitudTecnico {
 		return rol;
 	}
 
-	public SolicitudTecnico(String nombre, String apellido, String usuario, String password, Turno turno,
+	public SolicitudTecnico(String nombre, String apellido, String usuario, String password,String dni,  Turno turno,
 			Seniority seniority, Perfil rol) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -27,6 +27,7 @@ public class SolicitudTecnico {
 		this.turno = turno;
 		this.seniority = seniority;
 		this.rol = rol;
+		this.dni = dni;
 	}
 
 	public String getUsuario() {
@@ -47,5 +48,9 @@ public class SolicitudTecnico {
 
 	public Turno getTurno() {
 		return turno;
+	}
+
+	public String getDni() {
+		return dni;
 	}
 }

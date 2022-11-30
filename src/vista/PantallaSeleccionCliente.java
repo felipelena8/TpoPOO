@@ -17,6 +17,7 @@ import javax.swing.JTable;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
+import solicitudes.SolicitudInstalacion;
 
 public class PantallaSeleccionCliente extends JFrame {
 	JTable tablaClientes;
@@ -65,8 +66,9 @@ public class PantallaSeleccionCliente extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int fila = tablaClientes.rowAtPoint(e.getPoint());
-				String cuitCuil = (String) tablaClientes.getValueAt(fila, 0);
-				controladorSistema.crearInstalacion(fechaIni, fechaFin, cuitCuil);
+				String dni = (String) tablaClientes.getValueAt(fila, 0);
+				SolicitudInstalacion soli = new SolicitudInstalacion(fechaIni, fechaFin, controladorSistema.buscarClientePorDni(dni));
+				controladorPantalla.mostrarPantallaGrande(new PantallaTecnicos(controladorSistema.tecnicosDisponibles(soli),soli));
 				controladorPantalla.cerrarPantalla(pantalla);
 			}
 		});

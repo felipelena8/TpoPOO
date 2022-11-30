@@ -29,8 +29,13 @@ public class Tecnico extends Empleado{
 		return turno;
 	}
 	
+	public boolean soyTecnico(String dni) {
+		return dni.equals(getDni());
+	}
+	
 	public void asignarInstalacion(Instalacion instalacion) {
 		this.getInstalaciones().add(instalacion);
+		instalacion.reasignarTecnico(this);
 		Collections.sort(this.getInstalaciones(), new Comparator<Instalacion>() {
 			  @Override
 			  public int compare(Instalacion i1, Instalacion i2) {

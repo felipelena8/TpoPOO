@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
 import modelo.Tecnico;
+import solicitudes.SolicitudInstalacion;
 
 public class PantallaTecnicos extends JFrame {
 	private JTable tablaTecnicos;
@@ -31,7 +32,7 @@ public class PantallaTecnicos extends JFrame {
 	private ControladorSistema controladorSistema;
 	private List<Tecnico> tecnicos;
 
-	public PantallaTecnicos(List<Tecnico> tecnicos) {
+	public PantallaTecnicos(List<Tecnico> tecnicos, SolicitudInstalacion soli) {
 		super("Listado de tecnicos disponibles");
 		this.tecnicos = tecnicos;
 		controladorPantalla = ControladorPantalla.getInstance();
@@ -55,7 +56,7 @@ public class PantallaTecnicos extends JFrame {
 		btnAtras.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controladorPantalla.mostrarPantallaChica(new PantallaMenu());
+				controladorPantalla.mostrarPantallaGrande(new PantallaInstalaciones());
 				cerrarVentana();
 			}
 		});
@@ -90,6 +91,10 @@ public class PantallaTecnicos extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int row = tablaTecnicos.rowAtPoint(e.getPoint());
+				Tecnico tecnico = controladorSistema.buscarTecnicoDni(tablaTecnicos.getValueAt(row, 3).toString());
+				controladorSistema.asignarInstalacion(tecnico, soli);
+				cerrarVentana();
 				
 			}
 		});
@@ -107,10 +112,10 @@ public class PantallaTecnicos extends JFrame {
 				return false;
 			}
 		};
-		modelo.setColumnIdentifiers("ID-Nombre-Apellido-DNI-Turno-Usuario".split("-"));
+		modelo.setColumnIdentifiers("ID-Nombre-Apellido-DNI-Turno-Usuario-Seniority".split("-"));
 		for (Tecnico t : tecnicos) {
 			modelo.addRow(new Object[] { t.getUsuario().getId(), t.getNombre(), t.getApellido(), t.getDni(),
-					t.getTurno(), t.getUsuario().getUsername() });
+					t.getTurno(), t.getUsuario().getUsername(), t.getSeniority()});
 		}
 		return modelo;
 	}

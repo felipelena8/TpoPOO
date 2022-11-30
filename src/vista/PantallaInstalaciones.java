@@ -53,7 +53,7 @@ public class PantallaInstalaciones extends JFrame {
 		Container containerTabla = new Container();
 		tablaInstalaciones = new JTable(controladorSistema.informacionInstalaciones());
 		JScrollPane tableScrollPane = new JScrollPane(tablaInstalaciones);
-		tableScrollPane.setPreferredSize(new Dimension(500, 200));
+		tableScrollPane.setPreferredSize(new Dimension(700, 200));
 		containerTabla.setLayout(new GridLayout(1, 2, 5, 5));
 		containerTabla.add(tableScrollPane);
 		panel.add(containerTabla);
@@ -99,7 +99,7 @@ public class PantallaInstalaciones extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				LocalDateTime fIni = dateTimePickerFechaInicio.getDateTimeStrict();
 				LocalDateTime fFin = dateTimePickerFechaFin.getDateTimeStrict();
-				if (6 <= fIni.getHour() && fIni.getHour() <= 19 && 7 <= fFin.getHour() && fFin.getHour() <= 20) {
+				if (6 <= fIni.getHour() && fIni.getHour() <= 19 && 7 <= fFin.getHour() && fFin.getHour() <= 20 && fFin.getHour()>= fIni.getHour()+1) {
 
 					if (fIni != null && fFin != null) {
 						controladorPantalla.mostrarPantallaGrande(new PantallaSeleccionCliente(fIni, fFin));
@@ -108,7 +108,7 @@ public class PantallaInstalaciones extends JFrame {
 						JOptionPane.showMessageDialog(null, "Debes seleccionar dos fechas");
 					}
 				}else {
-					JOptionPane.showMessageDialog(null, "El rango horario de trabajo es desde 6:00 hasta las 20:00 horas");
+					JOptionPane.showMessageDialog(null, "El rango horario de trabajo es desde 6:00 hasta las 20:00 horas. Y la hora de fin debe ser al menos una hora mayor que la hora de inicio");
 				}
 			}
 		});
