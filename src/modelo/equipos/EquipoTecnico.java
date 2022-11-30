@@ -114,25 +114,40 @@ public class EquipoTecnico extends EquipoTrabajo {
 
 				}
 				if (i == tecnico.getInstalaciones().size() - 1) {
+					
+					fin = instalacion.getFechaFin().plusHours(horasTrabajo);
 				
-					if(inicio.getHour() < tecnico.getTurno().getInicio()) {
-						inicio = inicio.minusHours(inicio.getHour()).minusMinutes(inicio.getMinute());
-						inicio = inicio.plusHours(tecnico.getTurno().getInicio());
+					if(fin.getHour() <= tecnico.getTurno().getFin()) {
 						
+						inicio = instalacion.getFechaFin();
+							
 						
 					}else {
-						inicio = instalacion.getFechaFin();
+						
+						inicio = inicio.minusHours(inicio.getHour()).minusMinutes(inicio.getMinute());
+						inicio = inicio.plusDays(1).plusHours(tecnico.getTurno().getInicio());
+						fin = inicio.plusHours(horasTrabajo);
 						
 					}
 					
-					fin = inicio.plusHours(horasTrabajo);
+					
+					
 					return new Instalacion(inicio, fin, req.getCliente());
 				}
 
 			}
 
 		}
-		fin = req.getFechaInicio().plusHours(horasTrabajo);
+		
+		if(inicio.getHour() < tecnico.getTurno().getInicio()) {
+			inicio = inicio.minusHours(inicio.getHour()).minusMinutes(inicio.getMinute());
+			inicio = inicio.plusHours(tecnico.getTurno().getInicio());
+			
+			
+		}
+		
+		fin = inicio.plusHours(horasTrabajo);
+		
 		return new Instalacion(inicio, fin, req.getCliente());
 	}
 
