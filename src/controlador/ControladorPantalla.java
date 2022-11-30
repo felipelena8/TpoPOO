@@ -2,6 +2,7 @@ package controlador;
 
 import javax.swing.JFrame;
 
+import modelo.Empleado;
 import vista.PantallaInstalaciones;
 import vista.PantallaLogin;
 
