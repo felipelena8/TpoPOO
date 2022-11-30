@@ -53,7 +53,6 @@ public class PantallaInformacionFactura extends JFrame {
 		panel.add(containerTabla);	
 		panel.add(containerInfo);
 		this.add(panel);
-		
 		btnGuardar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
