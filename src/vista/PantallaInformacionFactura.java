@@ -1,10 +1,15 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
@@ -36,7 +42,7 @@ public class PantallaInformacionFactura extends JFrame {
 		containerTabla.setLayout(new GridLayout(1, 2, 5, 5));
 		containerTabla.add(tableScrollPane);
 		Container containerInfo = new Container();
-		containerInfo.setLayout(new GridLayout(2,3,1,1));
+		containerInfo.setLayout(new GridLayout(4,3,2,2));
 		
 		JLabel ltotal = new JLabel("Total: "+ (f.getTipo() == TipoFactura.A ? f.calcularTotalFactura(): f.calcularTotalFactura() + f.calcularTotalFactura()*Factura.getIva()) + " IVA incluido");
 		JLabel lcliente = new JLabel("DNI Cliente: " + f.getCliente().getDni());
@@ -48,6 +54,32 @@ public class PantallaInformacionFactura extends JFrame {
 		containerInfo.add(lcliente);
 		containerInfo.add(lnumero);
 		containerInfo.add(ltipo);
+		
+		
+		JLabel cantidadLabel = new JLabel("Cantidad: ");
+		JLabel warningLabel = new JLabel("* Solamente se permiten caracteres numéricos");
+		
+		warningLabel.setForeground(Color.red);
+		warningLabel.setVisible(false);
+		JTextField cantidadField = new JTextField();
+		
+		cantidadField.addKeyListener(new KeyAdapter() {
+	         public void keyPressed(KeyEvent ke) {
+	             String value = cantidadField.getText();
+	             int l = value.length();
+	             if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+	            	 cantidadField.setEditable(true);
+	            	 warningLabel.setVisible(false);
+	             } else {
+	            	 cantidadField.setEditable(false);
+	            	 warningLabel.setVisible(true);
+	             }
+	          }
+	       });
+	
+		containerInfo.add(cantidadLabel);
+		containerInfo.add(cantidadField);
+		containerInfo.add(warningLabel);
 		containerInfo.add(btnGuardar);
 		
 		panel.add(containerTabla);	
@@ -56,12 +88,42 @@ public class PantallaInformacionFactura extends JFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (int i = 0; i < tablaItems.getRowCount(); i++) {
-					f.getItemsDetalle().get(i).setCantidad(Integer.parseInt((String) tablaItems.getModel().getValueAt(i, 1)));
-					System.out.println(tablaItems.getValueAt(i, 1));
-					System.out.println(f.getItemsDetalle().get(i).getCantidad());
+				if(cantidadField.isEditable()) {
+					f.getItemsDetalle().get(tablaItems.getSelectedRow()).setCantidad(Integer.parseInt(cantidadField.getText()));
+					tablaItems.setModel(f.informacionItems());
 				}
-				tablaItems.setModel(f.informacionItems());
+			}
+		});
+		
+		tablaItems.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cantidadField.setText(tablaItems.getValueAt(tablaItems.rowAtPoint(e.getPoint()), 1).toString());
 			}
 		});
 	}
