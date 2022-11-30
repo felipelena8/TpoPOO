@@ -312,5 +312,14 @@ public class ControladorSistema {
 	public static Sistema getSistema() {
 		return sistema;
 	}
+	
+	public Instalacion buscarInstalacion(long id) {
+		for(Instalacion i: Sistema.getInstance().getInstalaciones()) {
+			if(i.getId() == id) {
+				return i;
+			}
+		}
+		return null;
+	}
 
 }

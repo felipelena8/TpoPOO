@@ -33,11 +33,11 @@ public class PantallaInstalaciones extends JFrame {
 
 	private JComboBox<EstadoInstalacion> comboEstado;
 
-	private DateTimePicker dateTimePickerFechaInicio, dateTimePickerFechaFin;
-
 	private ControladorPantalla controladorPantalla;
 
 	private ControladorSistema controladorSistema;
+	
+	private DateTimePicker dateTimePickerFechaInicio, dateTimePickerFechaFin;	
 
 	public PantallaInstalaciones() {
 

@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import modelo.enums.Perfil;
 import modelo.enums.Seniority;
 
@@ -42,6 +45,22 @@ public class Tecnico extends Empleado{
 			    return i1.getFechaInicio().compareTo(i2.getFechaInicio());
 			  }
 			});
+	}
+
+	public DefaultTableModel informacionInstalacionesTecnico() {
+		DefaultTableModel modelo = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		modelo.setColumnIdentifiers("ID-Fecha Inicio-Fecha Fin-Cliente DNI-Estado".split("-"));
+		for(Instalacion i: instalaciones) {
+			modelo.addRow(new Object[] {i.getId(), i.getFechaInicio(), i.getFechaFin(), i.getCliente().getDni(), i.getEstado()});
+		}
+		return modelo;
 	}
 
 }

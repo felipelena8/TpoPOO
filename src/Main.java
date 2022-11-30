@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
+import modelo.Instalacion;
 import modelo.Sistema;
 import modelo.Tecnico;
 import modelo.Turno;
@@ -12,6 +14,7 @@ import modelo.enums.TipoFactura;
 import solicitudes.SolicitudCliente;
 import solicitudes.SolicitudEmpleado;
 import solicitudes.SolicitudFactura;
+import solicitudes.SolicitudInstalacion;
 import solicitudes.SolicitudTecnico;
 import vista.PantallaLogin;
 import vista.PantallaTecnicos;
@@ -54,6 +57,7 @@ public class Main {
 		controladorSistema.agregarItemDetalle(1, DescripcionArticulo.CONDENSADORA, 3);
 
 		controladorPantalla.mostrarPantallaChica(new PantallaLogin());
+		controladorSistema.asignarInstalacion(Sistema.getInstance().getEquipoTecnico().getTecnicos().get(0), new SolicitudInstalacion(LocalDateTime.MIN, LocalDateTime.MIN, Sistema.getInstance().getClientes().get(0)));
 	}
 
 }

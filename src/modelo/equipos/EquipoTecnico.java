@@ -33,6 +33,7 @@ public class EquipoTecnico extends EquipoTrabajo {
 	public void agregarTecnico(Tecnico tecnico) {
 		this.tecnicos.add(tecnico);
 		this.agregarIntegrante(tecnico);
+		Sistema.getInstance().agregarEmpleado(tecnico);
 	}
 
 	private Turno calcularTurno(LocalDateTime inicio, LocalDateTime fin) {

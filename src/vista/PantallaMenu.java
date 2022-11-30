@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
+import modelo.Sistema;
+import modelo.Tecnico;
+import modelo.enums.Perfil;
 
 public class PantallaMenu extends JFrame {
 
@@ -82,7 +85,13 @@ public class PantallaMenu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controladorPantalla.cerrarPantalla(pantalla);
-				controladorPantalla.mostrarPantallaGrande(new PantallaInstalaciones());
+				if(controladorSistema.getEmpleadoLogueado().getPerfil()==Perfil.TECNICO) {
+					Tecnico tecnico = Sistema.getInstance().getEquipoTecnico().buscarTecnicoDni(controladorSistema.getEmpleadoLogueado().getDni());
+					controladorPantalla.mostrarPantallaGrande(new PantallaInstalacionesTecnico(tecnico));
+				}else {
+					controladorPantalla.mostrarPantallaGrande(new PantallaInstalaciones());
+				}
+				
 			}
 		});
 
