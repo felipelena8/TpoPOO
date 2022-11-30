@@ -94,13 +94,9 @@ public class PantallaConfiguracionSistema extends JFrame {
 		btnActualizarArticulo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (Articulo articulo : ControladorSistema.getSistema().getArticulos()) {
-					if (articulo.getDescripcion().name() == comboArticulos.getSelectedItem().toString()) {
-						articulo.setStock(Integer.parseInt(stockField.getText()));
-						articulo.setPrecio(Double.parseDouble(precioField.getText()));
-						actualizarTablaStock();
-					}
-				}
+				controladorSistema.actualizarStock(comboArticulos.getSelectedItem().toString(), Integer.parseInt(stockField.getText()),
+						Double.parseDouble(precioField.getText()));
+				actualizarTablaStock();
 			}
 		});
 
@@ -175,26 +171,15 @@ public class PantallaConfiguracionSistema extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (Seniority seniority : Seniority.values()) {
-					EquipoTecnico equipoTecnico = ControladorSistema.getSistema().getEquipoTecnico();
 					Double nuevoSueldo = Double.parseDouble(sueldoField.getText());
 					if (seniority.name() == comboSeniority.getSelectedItem().toString()) {
-						switch (seniority) {
-						case JUNIOR:
-							equipoTecnico.setSueldoJunior(nuevoSueldo);
-							break;
-						case SEMISENIOR:
-							equipoTecnico.setSueldoSemisenior(nuevoSueldo);
-							break;
-						case SENIOR:
-							equipoTecnico.setSueldoSenior(nuevoSueldo);
-							break;
-						}
+						controladorSistema.actualizarSueldoTecnicos(seniority, nuevoSueldo);
 						actualizarTablaTecnicos();
 					}
 				}
 			}
 		});
-		
+
 		Container containerAtras = new Container();
 		containerAtras.setLayout(new BoxLayout(containerAtras, BoxLayout.Y_AXIS));
 
@@ -206,11 +191,11 @@ public class PantallaConfiguracionSistema extends JFrame {
 				cerrarVentana();
 			}
 		});
-		
+
 		containerAtras.setPreferredSize(new Dimension(500, 50));
-		
+
 		containerAtras.add(btnAtras);
-		
+
 		panel.add(containerAtras);
 
 		this.add(panel, BorderLayout.CENTER);

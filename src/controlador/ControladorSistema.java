@@ -348,8 +348,19 @@ public class ControladorSistema {
 		}
 		if (instalacion.getTecnico() != null) {
 			instalacion.getTecnico().eliminarInstalacion(instalacion);
-		}
+		}		
+	}
 
+	public void actualizarStock(String nombreArticulo, int nuevoStock, double nuevoPrecio) {
+		for (Articulo articulo : ControladorSistema.getSistema().getArticulos()) {
+			if (articulo.getDescripcion().name() == nombreArticulo) {
+				Sistema.getInstance().getAreaSistema().actualizarStock(articulo, nuevoStock, nuevoPrecio);
+			}
+		}
+	}
+	
+	public void actualizarSueldoTecnicos(Seniority seniority, double nuevoSueldo) {
+		Sistema.getInstance().getAreaSistema().actualizarSueldoTecnicos(seniority, nuevoSueldo);
 	}
 
 }
