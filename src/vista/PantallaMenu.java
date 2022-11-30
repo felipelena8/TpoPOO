@@ -136,7 +136,6 @@ public class PantallaMenu extends JFrame {
 			break;
 		case ADMINISTRADOR_SISTEMA:
 			btnFacturas.setEnabled(false);
-			btnUsuarios.setEnabled(false);
 			btnInstalaciones.setEnabled(false);
 			btnClientes.setEnabled(false);
 			break;
@@ -147,6 +146,7 @@ public class PantallaMenu extends JFrame {
 			btnConfig.setEnabled(false);
 			break;
 		case OPERADOR:
+			btnUsuarios.setEnabled(false);
 			btnFacturas.setEnabled(false);
 			btnConfig.setEnabled(false);
 			break;
