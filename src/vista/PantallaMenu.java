@@ -118,6 +118,15 @@ public class PantallaMenu extends JFrame {
 				cerrarVentana();
 			}
 		});
+		
+		btnClientes.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controladorPantalla.mostrarPantallaGrande(new PantallaClientes());
+				
+			}
+		});
 
 		switch (controladorSistema.getEmpleadoLogueado().getPerfil()) {
 		case ADMINISTRADOR:

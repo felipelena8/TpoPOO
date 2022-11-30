@@ -3,6 +3,7 @@ package controlador;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import excepciones.FacturaException;
@@ -94,7 +95,6 @@ public class ControladorSistema {
 				}
 			}
 		}
-
 		return false;
 	}
 
@@ -270,7 +270,7 @@ public class ControladorSistema {
 		}
 
 	}
-
+	//Ya no se utiliza
 	public boolean emitirFactura(SolicitudFactura soli, String correo) {
 		Cliente cliente = buscarClientePorCorreo(correo);
 		if (cliente == null) {
@@ -282,6 +282,21 @@ public class ControladorSistema {
 		return true;
 
 	}
+	
+	public boolean emitirFactura(SolicitudFactura soli, Instalacion i) {
+		if (i.getCliente() == null) {
+			return false;
+		}
+		Factura f = new Factura(soli.getTipo(), i.getCliente());
+		for(Item item: i.getArticulos()) {
+			f.agregarItemDetalle(item);
+		}
+		sistema.getAreaAdministracion().emitirFactura(f);
+		
+		return true;
+
+	}
+
 
 	public boolean agregarArticulo(DescripcionArticulo descr, int cantidad) {
 		if (cantidad > 0) {
@@ -320,6 +335,24 @@ public class ControladorSistema {
 			}
 		}
 		return null;
+	}
+
+	public void eliminarInstalacion(Instalacion instalacion) {
+		List<Instalacion> instalaciones = Sistema.getInstance().getInstalaciones();
+		for (int i = 0; i < instalaciones.size(); i++) {
+			if(instalaciones.get(i).equals(instalacion)) {
+				instalaciones.remove(i);
+				JOptionPane.showMessageDialog(null, "La instalacion ha sido eliminada");
+				break;
+				
+			}
+		}
+		if(instalacion.getTecnico()!= null) {
+			instalacion.getTecnico().eliminarInstalacion(instalacion);
+		}
+		
+		
+		
 	}
 
 }

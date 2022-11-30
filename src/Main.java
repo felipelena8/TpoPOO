@@ -36,7 +36,7 @@ public class Main {
 		controladorSistema.agregarEmpleado(new SolicitudEmpleado("Esteban", "Quito", "3", Perfil.OPERADOR, "operador", "operador", Seniority.SENIOR));
 		
 		
-		controladorSistema.crearTecnico(new SolicitudTecnico("Elsa", "Pato", "elsapato", "elsapato","12312", Turno.MANANA, Seniority.SENIOR, Perfil.TECNICO));
+		controladorSistema.crearTecnico(new SolicitudTecnico("Elsa", "Pato", "tecnico", "tecnico","12312", Turno.MANANA, Seniority.SENIOR, Perfil.TECNICO));
 		controladorSistema.crearTecnico(new SolicitudTecnico("Elsa", "cacorchos", "elca", "elsaca","1235312", Turno.TARDE, Seniority.SEMISENIOR, Perfil.TECNICO));
 		controladorSistema.crearTecnico(new SolicitudTecnico("Elsa", "catangas", "elsaca", "elsacatangas","1222", Turno.MANANA, Seniority.JUNIOR, Perfil.TECNICO));
 		controladorSistema.agregarEmpleado(solicitudEmpleado);
@@ -57,7 +57,7 @@ public class Main {
 		controladorSistema.agregarItemDetalle(1, DescripcionArticulo.CONDENSADORA, 3);
 
 		controladorPantalla.mostrarPantallaChica(new PantallaLogin());
-		controladorSistema.asignarInstalacion(Sistema.getInstance().getEquipoTecnico().getTecnicos().get(0), new SolicitudInstalacion(LocalDateTime.MIN, LocalDateTime.MIN, Sistema.getInstance().getClientes().get(0)));
+		//controladorSistema.asignarInstalacion(Sistema.getInstance().getEquipoTecnico().getTecnicos().get(0), new SolicitudInstalacion(LocalDateTime.MIN, LocalDateTime.MIN, Sistema.getInstance().getClientes().get(0)));
 	}
 
 }

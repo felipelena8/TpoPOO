@@ -23,12 +23,14 @@ import javax.swing.JTextField;
 import controlador.ControladorPantalla;
 import controlador.ControladorSistema;
 import modelo.Factura;
+import modelo.enums.DescripcionArticulo;
 import modelo.enums.TipoFactura;
 
 public class PantallaInformacionFactura extends JFrame {
 	JTable tablaItems;
 	private ControladorPantalla controladorPantalla;
 	private ControladorSistema controladorSistema;
+	private DescripcionArticulo descrSelec;
 	public PantallaInformacionFactura(Factura f) {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		controladorPantalla = ControladorPantalla.getInstance();
@@ -89,7 +91,7 @@ public class PantallaInformacionFactura extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(cantidadField.isEditable()) {
-					f.getItemsDetalle().get(tablaItems.getSelectedRow()).setCantidad(Integer.parseInt(cantidadField.getText()));
+					f.setItemDetalle(descrSelec ,Integer.parseInt(cantidadField.getText()));
 					tablaItems.setModel(f.informacionItems());
 				}
 			}
@@ -124,6 +126,7 @@ public class PantallaInformacionFactura extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cantidadField.setText(tablaItems.getValueAt(tablaItems.rowAtPoint(e.getPoint()), 1).toString());
+				descrSelec = (DescripcionArticulo) tablaItems.getValueAt(tablaItems.rowAtPoint(e.getPoint()), 0);
 			}
 		});
 	}

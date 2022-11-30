@@ -31,6 +31,7 @@ public class AreaAdministrador extends EquipoTrabajo {
 
 	public void emitirFactura(Factura f) {
 		facturas.add(f);
+		f.getCliente().agregarFactura(f);
 	}
 
 }

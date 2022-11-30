@@ -32,7 +32,6 @@ public class PantallaFinalizarInstalacion extends JFrame {
 		controladorSistema = ControladorSistema.getInstance();
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 2, 1, 1));
-		JButton btnFinalizar = new JButton("Finalizar instalacion");
 		JComboBox<DescripcionArticulo> comboArticulo = new JComboBox<DescripcionArticulo>(DescripcionArticulo.values());
 		panel.add(comboArticulo);
 
@@ -44,7 +43,6 @@ public class PantallaFinalizarInstalacion extends JFrame {
 		contAddCantidad.add(labelCantidad);
 		contAddCantidad.add(fieldCantidad);
 		panel.add(contAddCantidad);
-		panel.add(btnFinalizar);
 		panel.add(btnGuardar);
 		this.add(panel);
 
@@ -62,16 +60,8 @@ public class PantallaFinalizarInstalacion extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				i.agregarItemDetalle(new Item(new Articulo((DescripcionArticulo) comboArticulo.getSelectedItem(), 0),
+				i.agregarArticulo(new Item(new Articulo((DescripcionArticulo) comboArticulo.getSelectedItem(), 0),
 						Integer.parseInt(fieldCantidad.getText())));
-			}
-		});
-		//TODO cambiar correo electronico Y AGREGAR TIPOFACTURA ASFFFFFFFFFFFFFFFFFIWKEIQK2WEIKQIK2EKQWIDKIKQAWDIK
-		btnFinalizar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controladorSistema.emitirFactura(new SolicitudFactura(TipoFactura.A), i.getCliente().getCorreoElectronico());
 			}
 		});
 

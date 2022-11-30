@@ -75,13 +75,15 @@ public class Instalacion {
 	public Cliente getCliente() {
 		return cliente;
 	}
+	public List<Item> getArticulos() {
+		return articulos;
+	}
 	
-	public void agregarItemDetalle(Item item) {
+	public void agregarArticulo(Item item) {
 		for (Item i : articulos) {
 			if (i.getArticulo().getDescripcion().equals(item.getArticulo().getDescripcion())) {
 				System.out.println(i.getCantidad());
 				i.setCantidad(i.getCantidad() + item.getCantidad());
-				
 				return;
 			}
 		}
